@@ -3,7 +3,8 @@ const app = express();
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
-const PORT = 5000;
+const subjectRoute = require("./routes/subjects");
+const PORT = 4000;
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -22,5 +23,6 @@ app.use(express.json());
 app.use("/api/users",userRoute);
 app.use("/api/auth",authRoute);
 app.use("/api/posts",postRoute);
+app.use("/api/subjects",subjectRoute);
 
 app.listen(PORT,() => console.log("サーバーが起動しました"));
