@@ -10,9 +10,11 @@ const SubjectSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    reviews
+    reviews:{
+        type: Array,
+        default: [],
+    },
     
-
 });
 
 module.exports = mongoose.model("Subject",UserSchema);
