@@ -10,7 +10,7 @@ const SubjectSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    reviews:{
+    reviewsId:{
         type: Array,
         default: [],
     },
