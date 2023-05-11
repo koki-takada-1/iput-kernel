@@ -5,6 +5,8 @@ const authRoute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const subjectRoute = require("./routes/subjects");
 const roomRoute = require("./routes/rooms");
+const teacherRoute = require("./routes/teachers");
+
 const PORT = 4000;
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -26,5 +28,6 @@ app.use("/api/auth",authRoute);
 app.use("/api/posts",postRoute);
 app.use("/api/subjects",subjectRoute);
 app.use("/api/rooms",roomRoute);
+app.use("/api/teachers",teacherRoute);
 
 app.listen(PORT,() => console.log("サーバーが起動しました"));

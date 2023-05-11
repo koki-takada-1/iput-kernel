@@ -95,6 +95,14 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    credLevel: {
+        type: Number,
+        default: 0,
+    },
+    credToken: {
+        type: Number,
+        default: 4,
+    },
     desc: {
         type: String,
         max: 128,
