@@ -17,7 +17,7 @@ const ClassSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    TimetableId: {
+    timetableId: {
         type: Array,
         default: [],
     },
