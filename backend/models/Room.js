@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const RoomSchema = new mongoose.Schema({
     roomName: {
         type: String,
-        default: "",
+        default: "教室",
     },
     roomNumber: {
         type: String,
@@ -15,4 +15,4 @@ const RoomSchema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("Room",UserSchema);
+module.exports = mongoose.model("Room",RoomSchema);

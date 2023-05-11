@@ -1,7 +1,7 @@
 {
-  "name": "real-sns",
+  "name": "iput-kernel",
   "version": "1.0.0",
-  "description": "real-sns",
+  "description": "IPUTでの大学生活を支援するためのアプリケーションシステム",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js"
