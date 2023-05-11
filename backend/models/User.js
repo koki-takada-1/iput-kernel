@@ -20,8 +20,11 @@ const UserSchema = new mongoose.Schema({
     },
     email: {
         type: String,
+        unique: true,
         required: true,
-        max: 50
+        trim: true,
+        lowercase: true,
+        max: 319
     },
     password: {
         type: String,
@@ -46,9 +49,8 @@ const UserSchema = new mongoose.Schema({
         default: [],
     },
     grade:{
-        type: String,
+        type: Number,
         max: 10,
-        default: "",
     },
     course:{
         type: String,
