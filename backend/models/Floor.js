@@ -9,23 +9,6 @@ const FloorSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    isStopElevator: {
-        type: Boolean,
-        default: false,
-    },
-    isStopRed: {
-        type: Boolean,
-        default: false,
-    },
-    isStopGreen: {
-        type: Boolean,
-        default: false,
-    },
-    isStopBlue: {
-        type: Boolean,
-        default: false,
-    },
-
 });
 
 

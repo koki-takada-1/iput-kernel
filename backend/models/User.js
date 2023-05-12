@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -22,6 +21,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         trim: true,
         lowercase: true,
+        match: [/^[a-zA-Z0-9_.+-]+@tks.iput.ac.jp/, 'ドメインはtks.iput.ac.jpである必要があります'],
         max: 319
     },
     password: {
@@ -97,11 +97,11 @@ const UserSchema = new mongoose.Schema({
     },
     credLevel: {
         type: Number,
-        default: 0,
+        default: 2,
     },
     credToken: {
         type: Number,
-        default: 4,
+        default: 3,
     },
     desc: {
         type: String,

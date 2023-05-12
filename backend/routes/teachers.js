@@ -1,18 +1,27 @@
 const router = require('express').Router();
 const Teacher = require('../models/Teacher');
-
-//Teacher作成
+const User = require('../models/User');
+// Create a teacher but only admin or has cred-level of 4 or higher
 router.post("/", async (req,res) => {
-    const newTeacher = new Teacher(req.body);
     try{
-        const savedTeacher = await newTeacher.save();
-        res.status(200).json(savedTeacher);
+        const userId = req.body.userId;
+        const user = await User.findById(userId);
+        if(user.isAdmin || user.trustLevel >= 4){
+            const newTeacher = new Teacher(req.body);
+            try{
+                const savedTeacher = await newTeacher.save();
+                res.status(200).json(savedTeacher);
+            }catch(err){
+                return res.status(500).json(err);
+            }
+        }else{
+            return res.status(403).json("teacherを作成できません");
+        }
     }catch(err){
         return res.status(500).json(err);
     }
 });
-
-//teacherをすべて取得
+// Get all teachers
 router.get("/", async (req,res) => {
     try{
         const teachers = await Teacher.find();
@@ -21,8 +30,7 @@ router.get("/", async (req,res) => {
         return res.status(500).json(err);
     }
 });
-
-//courseが一致するteacherをすべて取得
+// Get a teacher by id
 router.get("/course/:course", async (req,res) => {
     try{
         const teachers = await Teacher.find({course: req.params.course});
@@ -31,30 +39,36 @@ router.get("/course/:course", async (req,res) => {
         return res.status(500).json(err);
     }
 });
-
-
-//teacherを編集
+// Update a teacher but only admin or has cred-level of 4 or higher
 router.put("/:id", async (req,res) => {
     try{
         const teacher = await Teacher.findById(req.params.id);
-        await teacher.updateOne({
-            $set: req.body,
-        });
-        return res.status(200).json("teacherが更新されました");
+        const user = User.findById(req.body.userId);
+        if(user.isAdmin || userId.trustLevel >= 4){
+            await teacher.updateOne({
+                $set: req.body,
+            });
+            return res.status(200).json("teacherが更新されました");
+        }else{
+            return res.status(403).json("権限がありません。");
+        }
     }catch(err){
         return res.status(500).json(err);
     }
 });
-
-//特定のteacherを削除
+// Delete a teacher but only admin or has cred-level of 4 or higher
 router.delete("/:id", async (req,res) => {
     try{
         const teacher = await Teacher.findById(req.params.id);
-        await teacher.deleteOne();
-        return res.status(200).json("teacherが削除されました");
+        const user = await User.findById(req.body.userId);
+        if(user.isAdmin || user.trustLevel >= 4){
+            await teacher.deleteOne();
+            return res.status(200).json("teacherが削除されました");
+        }else{
+            return res.status(403).json("権限がありません。");
+        }
     }catch(err){
         return res.status(500).json(err);
     }
 });
-
 module.exports = router;
