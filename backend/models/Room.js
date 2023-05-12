@@ -6,7 +6,7 @@ const RoomSchema = new mongoose.Schema({
         default: "教室",
     },
     roomNumber: {
-        type: String,
+        type: Number,
         default: "",
     },
     status: {

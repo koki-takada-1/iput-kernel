@@ -1,19 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// @mui material components
 import Card from "@mui/material/Card";
 
 // Material Dashboard 2 PRO React components
@@ -26,10 +10,31 @@ import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
-// Data
-import dataTableData from "layouts/applications/data-tables/data/dataTableData";
+import axios from "axios";
+import { useEffect , useState } from "react";
 
 function DataTables() {
+  const [rooms, setRooms] = useState([]); // 追加
+
+  useEffect (() => {
+    const fetchRooms = async () => {
+      const res = await axios.get("/rooms/");
+      console.log(res.data);
+      setRooms(res.data);
+    };
+    fetchRooms();
+  }, []);
+
+
+  const dataTableData = {
+    columns: [
+      { Header: "教室名", accessor: "roomName", width: "50%" },
+      { Header: "番号", accessor: "roomNumber", width: "10%" },
+      { Header: "ステータス", accessor: "status" },
+    ],
+  
+    rows: rooms
+  };
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -38,11 +43,9 @@ function DataTables() {
           <Card>
             <MDBox p={3} lineHeight={1}>
               <MDTypography variant="h5" fontWeight="medium">
-                Datatable Simple
+                教室一覧
               </MDTypography>
-              <MDTypography variant="button" color="text">
-                A lightweight, extendable, dependency-free javascript HTML table plugin.
-              </MDTypography>
+              
             </MDBox>
             <DataTable table={dataTableData} />
           </Card>
