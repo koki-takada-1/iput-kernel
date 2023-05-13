@@ -15,7 +15,11 @@ import { useEffect , useState } from "react";
 
 function DataTables() {
   const [rooms, setRooms] = useState([]); // 追加
-
+  const [teachers, setTeachers] = useState([]); // 追加
+  const [subjects, setSubjects] = useState([]); // 追加
+  const [classes, setClasses] = useState([]); // 追加
+  const [timetables, setTimetables] = useState([]); // 追加
+  
   useEffect (() => {
     const fetchRooms = async () => {
       const res = await axios.get("/rooms/");
@@ -26,7 +30,7 @@ function DataTables() {
   }, []);
 
 
-  const dataTableData = {
+  const roomTableData = {
     columns: [
       { Header: "教室名", accessor: "roomName", width: "50%" },
       { Header: "番号", accessor: "roomNumber", width: "10%" },
@@ -45,9 +49,11 @@ function DataTables() {
               <MDTypography variant="h5" fontWeight="medium">
                 教室一覧
               </MDTypography>
-              
+              <MDTypography variant="button" color="text">
+                未ソートの場合は、生成順で表示されます。
+              </MDTypography>
             </MDBox>
-            <DataTable table={dataTableData} />
+            <DataTable table={roomTableData} canSearch/>
           </Card>
         </MDBox>
         <Card>
@@ -59,7 +65,7 @@ function DataTables() {
               A lightweight, extendable, dependency-free javascript HTML table plugin.
             </MDTypography>
           </MDBox>
-          <DataTable table={dataTableData} canSearch />
+          <DataTable table={roomTableData} canSearch />
         </Card>
       </MDBox>
       <Footer />

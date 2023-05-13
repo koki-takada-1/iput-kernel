@@ -163,7 +163,7 @@ function DataTable({
                 renderInput={(params) => <MDInput {...params} />}
               />
               <MDTypography variant="caption" color="secondary">
-                &nbsp;&nbsp;entries per page
+                &nbsp;&nbsp;行表示
               </MDTypography>
             </MDBox>
           )}
@@ -230,7 +230,7 @@ function DataTable({
         {showTotalEntries && (
           <MDBox mb={{ xs: 3, sm: 0 }}>
             <MDTypography variant="button" color="secondary" fontWeight="regular">
-              Showing {entriesStart} to {entriesEnd} of {rows.length} entries
+            {rows.length} エントリー中 {entriesStart} から {entriesEnd} 行までを表示しています。 
             </MDTypography>
           </MDBox>
         )}

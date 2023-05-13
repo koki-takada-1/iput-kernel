@@ -1,19 +1,6 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
+
+import axios from "axios";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
@@ -37,19 +24,49 @@ function Illustration() {
   const [rememberMe, setRememberMe] = useState(false);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
+
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("/auth/login", {
+        email,
+        password,
+      });
+      console.log(response.data);
+      // ログインに成功した場合の処理
+    } catch (error) {
+      console.error(error);
+      // ログインに失敗した場合の処理
+    }
+  };
   return (
     <IllustrationLayout
-      title="Sign In"
-      description="Enter your email and password to sign in"
+      title="ログイン"
+      description="大学のメールアドレスが必要です。"
       illustration={bgImage}
     >
       <MDBox component="form" role="form">
         <MDBox mb={2}>
-          <MDInput type="email" label="Email" fullWidth />
+          <MDInput type="email" 
+            label="Email"
+            fullWidth
+            value={email}
+            onChange={handleEmailChange}
+            />
         </MDBox>
         <MDBox mb={2}>
-          <MDInput type="password" label="Password" fullWidth />
+          <MDInput 
+            type="password" 
+            label="Password" 
+            fullWidth
+            value={password}
+            onChange={handlePasswordChange}
+            
+            />
         </MDBox>
         <MDBox display="flex" alignItems="center" ml={-1}>
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
