@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext ,useState} from "react";
 
 // react-router-dom components
 import { Link } from "react-router-dom";
 
-import axios from "axios";
+
+// Auth Context
+import { AuthContext } from "states/AuthContext";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -21,29 +23,23 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 
 // Images
 import bgImage from "assets/images/bg-sign-in-cover.jpeg";
-
+import { loginCall } from "actionCalls";
 
 function Cover() {
-  const [rememberMe, setRememberMe] = useState(true);
+  const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { user, isFetching, error, dispatch} = useContext(AuthContext);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
-
-  const handleLogin = async () => {
-    try {
-      const response = await axios.post("/auth/login", {
-        email,
-        password,
-      });
-      console.log(response.data);
-      // ログインに成功した場合の処理
-    } catch (error) {
-      console.error(error);
-      // ログインに失敗した場合の処理
-    }
+  
+  const handleLogin = (e) => {
+    e.preventDefault();
+    loginCall({
+      email: email,
+      password: password
+    }, dispatch
+    );
   };
 
   return (
@@ -79,7 +75,7 @@ function Cover() {
                 placeholder="tk*@tks.iput.ac.jp"
                 InputLabelProps={{ shrink: true }}
                 value={email}
-                onChange={handleEmailChange}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </MDBox>
             <MDBox mb={2}>
@@ -91,7 +87,7 @@ function Cover() {
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>

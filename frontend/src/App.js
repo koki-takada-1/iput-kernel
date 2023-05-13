@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo ,useContext} from "react";
 
 // react-router components
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
@@ -38,6 +38,9 @@ import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "co
 import brandWhite from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
 
+import Cover from "layouts/authentication/sign-in/cover";
+import { AuthContext } from "states/AuthContext";
+
 export default function App() {
   const [controller, dispatch] = useMaterialUIController();
   const {
@@ -53,7 +56,8 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
+  const { user } = useContext(AuthContext);
+ 
   // Cache for the rtl
   useMemo(() => {
     const cacheRtl = createCache({
@@ -129,7 +133,8 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
+          
+          {/*<Route path="*" element={<Navigate to="/dashboards/analytics" />} /> */}
         </Routes>
       </ThemeProvider>
     </CacheProvider>
@@ -153,7 +158,8 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboards/analytics" />} />
+        <Route path="*" element={user ? <Navigate to="/dashboards/sales" /> : <Cover />} />
+       
       </Routes>
     </ThemeProvider>
   );
