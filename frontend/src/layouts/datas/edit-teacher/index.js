@@ -2,6 +2,7 @@ import Card from "@mui/material/Card";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
+import MDButton from "components/MDButton";
 import MDTypography from "components/MDTypography";
 
 // Material Dashboard 2 PRO React examples
@@ -12,8 +13,9 @@ import DataTable from "examples/Tables/DataTable";
 
 import axios from "axios";
 import { useEffect , useState } from "react";
+import { Link } from "react-router-dom";
 
-function DataTables() {
+function EditTeachers() {
   const [rooms, setRooms] = useState([]); // 追加
   const [teachers, setTeachers] = useState([]); // 追加
   const [subjects, setSubjects] = useState([]); // 追加
@@ -45,15 +47,26 @@ function DataTables() {
       <MDBox pt={6} pb={3}>
         <MDBox mb={3}>
           <Card>
-            <MDBox p={3} lineHeight={1}>
-              <MDTypography variant="h5" fontWeight="medium">
-                教室一覧
-              </MDTypography>
-              <MDTypography variant="button" color="text">
-                未ソートの場合は、生成順で表示されます。
-              </MDTypography>
-            </MDBox>
+            <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+              <MDBox  lineHeight={1}>
+                <MDTypography variant="h5" fontWeight="medium">
+                  教室一覧
+                </MDTypography>
+                <MDTypography variant="button" color="text">
+                  未ソートの場合は、生成順で表示されます。
+                </MDTypography>
+              </MDBox>
+                <MDButton 
+                  variant="contained" 
+                  color="info" 
+                  component={Link}
+                  to="/datas/createTeacher"
+                  >教室を追加
+                </MDButton>
+              </MDBox>
+                
             <DataTable table={roomTableData} canSearch/>
+            
           </Card>
         </MDBox>
         <Card>
@@ -71,6 +84,6 @@ function DataTables() {
       <Footer />
     </DashboardLayout>
   );
-}
+};
 
-export default DataTable;
+export default EditTeachers;

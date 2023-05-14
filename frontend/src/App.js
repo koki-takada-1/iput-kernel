@@ -6,10 +6,6 @@ import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 // @mui material components
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import Icon from "@mui/material/Icon";
-
-// Material Dashboard 2 PRO React components
-import MDBox from "components/MDBox";
 
 // Material Dashboard 2 PRO React examples
 import Sidenav from "examples/Sidenav";
@@ -111,7 +107,6 @@ export default function App() {
       return null;
     });
 
-
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
@@ -158,7 +153,7 @@ export default function App() {
       {layout === "vr" && <Configurator />}
       <Routes>
         {getRoutes(routes)}
-        <Route path="*" element={user ? <Navigate to="/dashboards/sales" /> : <Cover />} />
+        <Route path="*" element={user ? <Navigate to="/dashboards" /> : <Cover />} />
        
       </Routes>
     </ThemeProvider>

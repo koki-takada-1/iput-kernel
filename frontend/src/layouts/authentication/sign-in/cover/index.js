@@ -25,6 +25,7 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 import bgImage from "assets/images/bg-sign-in-cover.jpeg";
 import { loginCall } from "actionCalls";
 
+
 function Cover() {
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ function Cover() {
     }, dispatch
     );
   };
-
+  
   return (
     <CoverLayout image={bgImage}>
       <MDAlert color="error" dismissible>ログイン失敗！</MDAlert>
@@ -109,7 +110,7 @@ function Cover() {
                 fullWidth
                 onClick={handleLogin}
                 >
-                sign in
+                Log in
               </MDButton>
             </MDBox>
             <MDBox mt={3} mb={1} textAlign="center">

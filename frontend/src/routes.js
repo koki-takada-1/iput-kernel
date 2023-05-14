@@ -1,6 +1,5 @@
 
 /** 
-  Iput-Kernelに導入されるすべてのページがここに集約されている。
   You can add a new route, customize the routes and delete the routes here.
 
   Once you add a new route on this file it will be visible automatically on
@@ -51,7 +50,8 @@ import SignInCover from "layouts/authentication/sign-in/cover";
 import SignInIllustration from "layouts/authentication/sign-in/illustration";
 import SignUpCover from "layouts/authentication/sign-up/cover";
 import ResetCover from "layouts/authentication/reset-password/cover";
-
+import Rooms from "layouts/datas/rooms";
+import EditTeacher from "layouts/datas/edit-teacher";
 import HelpPage from "layouts/pages/help-page";
 
 // Material Dashboard 2 PRO React components
@@ -61,25 +61,28 @@ import MDAvatar from "components/MDAvatar";
 import Icon from "@mui/material/Icon";
 
 // Images
-import profilePicture from "assets/images/team-3.jpg";
+import profilePicture from "assets/images/Lenna.png";
 
 const routes = [
+  
   {
     type: "collapse",
-    name: "Brooklyn Alice",
+    name: "黒羽 晟",
     key: "brooklyn-alice",
     icon: <MDAvatar src={profilePicture} alt="Brooklyn Alice" size="sm" />,
     collapse: [
       {
-        name: "My Profile",
+        name: "プロフィール",
         key: "my-profile",
-        route: "/pages/profile/profile-overview",
+        route: "account/profile",
         component: <ProfileOverview />,
       },
       {
-        name: "Settings",
+        type: "collapse",
+        name: "設定",
         key: "profile-settings",
         route: "/pages/account/settings",
+        icon:  <Icon fontSize="medium">apps</Icon>,
         component: <Settings />,
       },
       {
@@ -90,34 +93,58 @@ const routes = [
       },
     ],
   },
+  
   { type: "divider", key: "divider-0" },
+  
+  {
+    type: "collapse",
+    name: "Dashboard",
+    key: "dashboard",
+    route: "/dashboards",
+    component: <Analytics />,
+    icon: <Icon fontSize="medium">dashboard</Icon>,
+    noCollapse: true,
+  },
   {
     type: "collapse",
     name: "Dashboards",
     key: "dashboards",
     icon: <Icon fontSize="medium">dashboard</Icon>,
     collapse: [
-      {
-        name: "Analytics",
-        key: "analytics",
-        route: "/dashboards/analytics",
-        component: <Analytics />,
-      },
+      
       {
         name: "Sales",
         key: "sales",
         route: "/dashboards/sales",
         component: <Sales />,
       },
-      {
-        name: "Events",
-        key: "events",
-        route: "/dashboards/events",
-        component: <Events />,
-      },
+      
     ],
+
   },
   { type: "title", title: "Pages", key: "title-pages" },
+  {
+    type: "collapse",
+    name: "Datas",
+    key: "datas",
+    icon: <Icon fontSize="medium">storage</Icon>,
+    collapse: [
+      
+      {
+        name: "Rooms",
+        key: "rooms",
+        route: "/datas/rooms",
+        component: <Rooms />,
+      },
+      {
+        name: "Edit Teacher",
+        key: "edit-teacher",
+        route: "/datas/edit-Teacher",
+        component: <EditTeacher />,
+      },
+    ],
+
+  },
   {
     type: "collapse",
     name: "Pages",
@@ -430,6 +457,14 @@ const routes = [
   },
   {
     type: "collapse",
+    name: "Change Log",
+    key: "changelog",
+    href: "https://github.com/creativetimofficial/ct-material-dashboard-pro-react/blob/main/CHANGELOG.md",
+    icon: <Icon fontSize="medium">receipt_long</Icon>,
+    noCollapse: true,
+  },
+  {
+    type: "collapse",
     name: "Components",
     key: "components",
     icon: <Icon fontSize="medium">view_in_ar</Icon>,
@@ -519,6 +554,7 @@ const routes = [
     icon: <Icon fontSize="medium">receipt_long</Icon>,
     noCollapse: true,
   },
+  
 ];
 
 export default routes;

@@ -28,7 +28,7 @@ import MDButton from "components/MDButton";
 import FormField from "layouts/applications/wizard/components/FormField";
 
 // Images
-import team2 from "assets/images/team-2.jpg";
+import lenna from "assets/images/Lenna.png";
 
 function About() {
   return (
@@ -44,7 +44,7 @@ function About() {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={4} container justifyContent="center">
             <MDBox position="relative" height="max-content" mx="auto">
-              <MDAvatar src={team2} alt="profile picture" size="xxl" variant="rounded" />
+              <MDAvatar src={lenna} alt="profile picture" size="xxl" variant="rounded" />
               <MDBox alt="spotify logo" position="absolute" right={0} bottom={0} mr={-1} mb={-1}>
                 <Tooltip title="Edit" placement="top">
                   <MDButton variant="gradient" color="info" size="small" iconOnly>
