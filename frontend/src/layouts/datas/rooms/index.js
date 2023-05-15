@@ -43,8 +43,8 @@ function Rooms() {
 
   const roomTableData = {
     columns: [
-      { Header: "教室名", accessor: "roomName", width: "50%" },
-      { Header: "番号", accessor: "roomNumber", width: "10%" },
+      { Header: "教室名", accessor: "roomName", width: "45%" },
+      { Header: "番号", accessor: "roomNumber", width: "20%" },
       { Header: "ステータス", accessor: "status" },
     ],
   
@@ -53,124 +53,126 @@ function Rooms() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox pt={6} pb={100}>
-        <MDBox mb={3}>
-          <Card>
-            <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-              <MDBox  lineHeight={1}>
-                <MDTypography variant="h5" fontWeight="medium">
-                  教室一覧
-                </MDTypography>
-                <MDTypography variant="button" color="text">
-                  未ソートの場合は、生成順で表示されます。
-                </MDTypography>
-              </MDBox>
-              <MDButton 
-                variant="contained" 
-                color="info" 
-                >教室を追加
-              </MDButton>
-            </MDBox>
-                
-            <DataTable table={roomTableData} canSearch/>
-            
-          </Card>
-        </MDBox>
-        <MDBox mb={3}>
-          <Card>
-            <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
-              <MDBox>
-                <MDTypography variant="h5" fontWeight="medium">
-                  ステータス更新
-                </MDTypography>
-                <MDTypography variant="button" color="text">
-                  このアクションには信用レベル3が必要です。
-                </MDTypography>
-              </MDBox>
-              <MDButton variant="contained" color="info" >PUT</MDButton>
-            </MDBox>
-            <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center" lineHeight={1}>
-              <MDBox flex="1 1 auto" mr={1} flexBasis="25%">  
-                <MDInput
-                  placeholder="300"
-                  fullWidth
-                />
-              </MDBox>
-              <MDBox flex="1 1 auto" mr={1} flexBasis="25%">
-                <MDInput
-                  placeholder="自習室"
-                  fullWidth
-                  onChange={(e) => setNewRoomStatus(e.target.value)}
-                />
-              </MDBox>
-            </MDBox>
-          </Card>
-        </MDBox>
-        <MDBox mb={3}>
-          <Card>
-            <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
-              <MDBox>
-                <MDTypography variant="h5" fontWeight="medium">
-                  教室の追加、削除
-                </MDTypography>
-                <MDTypography variant="button" color="text">
-                  このアクションには信用レベル4が必要です。
-                </MDTypography>
-              </MDBox>
-            
-              <MDButton variant="contained" color="warning">POST
-              </MDButton>
-              
-            </MDBox>
-            <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-              <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
-                <MDInput
-                  placeholder="大型講義室"
-                  fullWidth
-                />
-              </MDBox>
-              <MDBox flex="1 1 auto" mr={1} flexBasis="25%">  
-                <MDInput
-                  placeholder="300"
-                  fullWidth
-                />
-              </MDBox>
-              <MDBox flex="1 1 auto" mr={1} flexBasis="25%">
-                <MDInput
-                  placeholder="自習室"
-                  fullWidth
-                  onChange={(e) => setNewRoomStatus(e.target.value)}
-                />
-              </MDBox>
-            </MDBox>
-          </Card>
-          <Grid container spacing={1} py={2}>
-            <Grid item xs={12} md={6} lg={4}>
+      <MDBox pt={6} >
+        <Grid  container spacing={1}>
+          <Grid item xs={12} md={12} lg={8}>
+            <MDBox mb={3}>
               <Card>
-              <MDBox mb={3}> 
-                <MDInput>aiueo</MDInput>
-              </MDBox>
-              </Card>
-            </Grid>
-            
-            <Grid item xs={12} md={6} lg={4}>
-              <Card>
-                <MDBox mb={3}> 
-                  <MDInput>aiueo</MDInput>
+                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
+                  <MDBox  lineHeight={1}>
+                    <MDTypography variant="h5" fontWeight="medium">
+                      教室一覧
+                    </MDTypography>
+                    <MDTypography variant="button" color="text">
+                      未ソートの場合は、生成順で表示されます。
+                    </MDTypography>
+                  </MDBox>
+                  <MDButton 
+                    variant="contained" 
+                    color="info" 
+                    >教室を追加
+                  </MDButton>
                 </MDBox>
-              </Card>
-            </Grid>
-            
-            <Grid item xs={12} md={6} lg={4}>
-            <Card>
-                <MDBox mb={3}> 
-                  <MDInput>aiueo</MDInput>
-                </MDBox>
-              </Card>
-            </Grid>
-          </Grid>
+                    
+                <DataTable table={roomTableData} canSearch/>
           
-        </MDBox>
+              </Card>
+            </MDBox>
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <MDBox pb={1}>
+              <Card>
+                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
+                  <MDBox>
+                    <MDTypography variant="h5" fontWeight="medium">
+                      ステータス変更
+                    </MDTypography>
+                  </MDBox>
+                    <MDButton variant="contained" color="info">PUT
+                    </MDButton>
+                </MDBox>
+              
+                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">  
+                    <MDInput
+                      placeholder="300"
+                      fullWidth
+                    />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
+                    <MDInput
+                      placeholder="自習室"
+                      fullWidth
+                      onChange={(e) => setNewRoomStatus(e.target.value)}
+                    />
+                  </MDBox>
+                </MDBox>
+              </Card>
+            </MDBox>
+            <MDBox pb={1}>
+              <Card>
+                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
+                  <MDBox>
+                    <MDTypography variant="h5" fontWeight="medium">
+                      教室削除
+                    </MDTypography>
+                  </MDBox>
+                    <MDButton variant="contained" color="error">DELETE
+                    </MDButton>
+                </MDBox>
+              
+                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
+                
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">  
+                    <MDInput
+                      placeholder="300"
+                      fullWidth
+                    />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
+                    <MDInput
+                      placeholder="自習室"
+                      fullWidth
+                      onChange={(e) => setNewRoomStatus(e.target.value)}
+                    />
+                  </MDBox>
+                </MDBox>
+              </Card>
+            </MDBox>
+            <MDBox>
+              <Card>
+                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
+                  <MDBox>
+                    <MDTypography variant="h5" fontWeight="medium">
+                      教室追加
+                    </MDTypography>
+                  </MDBox>
+                    <MDButton variant="contained" color="warning">POST
+                    </MDButton>
+                </MDBox>
+              
+                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="60%">  
+                    
+                    <MDInput
+                      placeholder="300"
+                      fullWidth
+                    />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="20%">
+                    <MDInput
+                      placeholder="自習室"
+                      fullWidth
+                      onChange={(e) => setNewRoomStatus(e.target.value)}
+                    />
+                  </MDBox>
+                </MDBox>
+              </Card>
+            </MDBox>
+          </Grid>
+        </Grid>
+        
+        
       </MDBox>
       <Footer />
     </DashboardLayout>

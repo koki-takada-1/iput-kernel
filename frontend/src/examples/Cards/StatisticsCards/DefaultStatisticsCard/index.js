@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // prop-types is a library for typechecking of props
 import PropTypes from "prop-types";
 
@@ -27,16 +12,19 @@ import MDTypography from "components/MDTypography";
 // Material Dashboard 2 PRO React contexts
 import { useMaterialUIController } from "context";
 
-function DefaultStatisticsCard({ title, count, percentage, dropdown }) {
+function DefaultStatisticsCard({ title, count, percentage,time }) {
   const [controller] = useMaterialUIController();
   const { darkMode } = controller;
-
+  const cardStyle = {
+    backgroundColor: '#ebeced'
+  }
   return (
+    
     <Card>
       <MDBox p={2}>
         <Grid container>
-          <Grid item xs={7}>
-            <MDBox mb={0.5} lineHeight={1}>
+          <Grid item xs={12}>
+            <MDBox mb={0.5} lineHeight={1} display="flex" justifyContent="space-between">
               <MDTypography
                 variant="button"
                 fontWeight="medium"
@@ -45,39 +33,37 @@ function DefaultStatisticsCard({ title, count, percentage, dropdown }) {
               >
                 {title}
               </MDTypography>
-            </MDBox>
-            <MDBox lineHeight={1}>
-              <MDTypography variant="h5" fontWeight="bold">
-                {count}
-              </MDTypography>
-              <MDTypography variant="button" fontWeight="bold" color={percentage.color}>
-                {percentage.value}&nbsp;
-                <MDTypography
-                  variant="button"
-                  fontWeight="regular"
-                  color={darkMode ? "text" : "secondary"}
-                >
-                  {percentage.label}
-                </MDTypography>
+              <MDTypography
+                variant="button"
+                fontWeight="medium"
+                color="text"
+                textTransform="capitalize"
+              >
+                {time}
               </MDTypography>
             </MDBox>
-          </Grid>
-          <Grid item xs={5}>
-            {dropdown && (
-              <MDBox width="100%" textAlign="right" lineHeight={1}>
-                <MDTypography
-                  variant="caption"
-                  color="secondary"
-                  fontWeight="regular"
-                  sx={{ cursor: "pointer" }}
-                  onClick={dropdown.action}
-                >
-                  {dropdown.value}
+            <MDBox lineHeight={1} >
+              <MDBox textAlign="center" my={1}>
+                <MDTypography variant="h5" fontWeight="bold">
+                  {count}
                 </MDTypography>
-                {dropdown.menu}
               </MDBox>
-            )}
+              <MDBox display="flex" justifyContent="space-between">
+                <MDTypography variant="button" fontWeight="bold" color={percentage.color}>
+                  {percentage.value}&nbsp;
+                  
+                </MDTypography>
+                <MDTypography
+                    variant="button"
+                    fontWeight="regular"
+                    color={darkMode ? "text" : "secondary"}
+                  >
+                    {percentage.label}
+                </MDTypography>
+              </MDBox>
+            </MDBox>
           </Grid>
+          
         </Grid>
       </MDBox>
     </Card>

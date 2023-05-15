@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Tooltip from "@mui/material/Tooltip";
@@ -21,12 +6,12 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-
+import DefaultStatisticsCard from "examples/Cards/StatisticsCards/DefaultStatisticsCard";
+import Card from "@mui/material/Card";
 // Material Dashboard 2 PRO React examples
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsBarChart from "examples/Charts/BarCharts/ReportsBarChart";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import BookingCard from "examples/Cards/BookingCard";
@@ -45,7 +30,9 @@ import booking3 from "assets/images/products/product-3-min.jpg";
 
 function Analytics() {
   const { sales, tasks } = reportsLineChartData;
-
+  const cardStyle = {
+    backgroundColor: '#ebeced'
+  };
   // Action buttons for the BookingCard
   const actionButtons = (
     <>
@@ -73,17 +60,62 @@ function Analytics() {
       <MDBox py={3}>
         
         <MDBox mt={6}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mb={3}>
-                <ReportsBarChart
-                  color="info"
-                  title="website views"
-                  description="Last Campaign Performance"
-                  date="campaign sent 2 days ago"
-                  chart={reportsBarChartData}
-                />
-              </MDBox>
+          <Grid container spacing={3} >
+            <Grid item xs={12} md={6} lg={4}  >
+              <Card style={cardStyle}>
+                <MDBox p={1}>
+                  <MDBox mt={3} mb={1} >
+                    <DefaultStatisticsCard
+                    title="1限"
+                    time="9:15 - 10:45"
+                    count="画像・音声認識"
+                    percentage={{
+                      color: "info",
+                      value: "342",
+                      label: "上條 浩一 教授",
+                    }}
+                    
+                    />
+                  </MDBox>
+                  <MDBox mb={1} >
+                    <DefaultStatisticsCard
+                    title="2限"
+                    time="10:55 - 12:25"
+                    count="リバースエンジニアリング概論"
+                    percentage={{
+                      color: "info",
+                      value: "342",
+                      label: "上條 浩一 教授",
+                    }}
+                    
+                    />
+                  </MDBox>
+                  <MDBox mb={1} >
+                    <DefaultStatisticsCard
+                    title="3限"
+                    time="13:10 - 14:40"
+                    count="画像・音声認識"
+                    percentage={{
+                      color: "info",
+                      value: "342",
+                      label: "上條 浩一 教授",
+                    }}
+                    />
+                  </MDBox>
+                  <MDBox mb={1} >
+                    <DefaultStatisticsCard
+                    title="4限"
+                    count="画像・音声認識"
+                    percentage={{
+                      color: "info",
+                      value: "342",
+                      label: "上條 浩一 教授",
+                    }}
+                    
+                    />
+                  </MDBox>
+                </MDBox>
+              </Card>
             </Grid>
             <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
