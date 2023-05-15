@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDProgress from "components/MDProgress";
@@ -33,7 +18,7 @@ const dataTableData = {
     { Header: "product", accessor: "product", width: "50%" },
     { Header: "price", accessor: "price", width: "10%" },
     { Header: "review", accessor: "review", align: "center" },
-    { Header: "availability", accessor: "availability", align: "center", width: "40%" },
+    { Header: "難易度", accessor: "availability", align: "center", width: "40%" },
     { Header: "id", accessor: "id", align: "center" },
   ],
 

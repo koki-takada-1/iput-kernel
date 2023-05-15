@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
@@ -30,7 +15,7 @@ function ProductInfo() {
     <MDBox>
       <MDBox mb={1}>
         <MDTypography variant="h3" fontWeight="bold">
-          Minimal Bar Stool
+          基礎javascirpt応用
         </MDTypography>
       </MDBox>
       <MDTypography variant="h4" color="text">
@@ -42,15 +27,15 @@ function ProductInfo() {
       </MDTypography>
       <MDBox mt={1}>
         <MDTypography variant="h6" fontWeight="medium">
-          Price
+          授業回数
         </MDTypography>
       </MDBox>
       <MDBox mb={1}>
         <MDTypography variant="h5" fontWeight="medium">
-          $1,419
+          15回
         </MDTypography>
       </MDBox>
-      <MDBadge variant="contained" color="success" badgeContent="in stock" container />
+      <MDBadge variant="contained" color="success" badgeContent="履修中" container />
       <MDBox mt={3} mb={1} ml={0.5}>
         <MDTypography variant="button" fontWeight="regular" color="text">
           Description

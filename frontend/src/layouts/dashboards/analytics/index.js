@@ -15,6 +15,7 @@ import Footer from "examples/Footer";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
 import BookingCard from "examples/Cards/BookingCard";
+import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
 
 // Anaytics dashboard components
 import SalesByCountry from "layouts/dashboards/analytics/components/SalesByCountry";
@@ -117,30 +118,21 @@ function Analytics() {
                 </MDBox>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6} lg={4}>
+
+            <Grid item xs={12} md={6} lg={2}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="success"
-                  title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
-                  date="updated 4 min ago"
-                  chart={sales}
-                />
+              <DefaultInfoCard
+                icon="chat"
+                title="談話室"
+                value="312"
+              />
               </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
               <MDBox mb={3}>
-                <ReportsLineChart
-                  color="dark"
-                  title="completed tasks"
-                  description="Last Campaign Performance"
-                  date="just updated"
-                  chart={tasks}
-                />
+              <DefaultInfoCard
+                icon="school"
+                title="自習室"
+                value="322"
+              />
               </MDBox>
             </Grid>
           </Grid>
