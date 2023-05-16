@@ -13,30 +13,21 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 import axios from "axios";
-import { useEffect , useState ,useContext} from "react";
-import { AuthContext } from "states/AuthContext";
+import { useEffect , useState } from "react";
 
 function EditTeachers() {
   const [teachers, setTeachers] = useState([]); // 追加
-  const [newTeacher, setNewTeacher] = useState({firstName:'',lastName:'',course:''}); // 追加
-  const { user } = useContext(AuthContext);
-  const handleFirstNameChange = (event) => {
-    const newFirstName = event.target.value;
-    setNewTeacher((prevData) => ({ ...prevData, firstName: newFirstName }));
-  };
-  const handleLastNameChange = (event) => {
-    const newLastName = event.target.value;
-    setNewTeacher((prevData) => ({ ...prevData, lastName: newLastName }));
-  };
-  const handleCourseChange = (event) => {
-    const newCourse = event.target.value;
-    setNewTeacher((prevData) => ({ ...prevData, course: newCourse }));
-  };
+  const [newRoomName, setNewRoomName] = useState([]); // 追加
+  const [newRoomNumber, setNewRoomNumber] = useState([]); // 追加
+  const [newStatus, setNewRoomStatus] = useState([]); // 追加
+  
   // axiosでpostする関数を作成
-  const postTeacher = async () => {
-    //newTeacherにuserのidを追加
-    newTeacher.userId = user._id;
-    const res = await axios.post("/teachers/",newTeacher);
+  const postRoom = async () => {
+    const res = await axios.post("/rooms/", {
+      roomName: "test",
+      roomNumber: 1,
+      status: "使用中",
+    });
     console.log(res.data);
   };
 
@@ -48,27 +39,17 @@ function EditTeachers() {
     };
     fetchTeachers();
   }, []);
-  //res.dataのfirstNameとlastNameを結合してnameとして表示する
-  const teachersData = teachers.map((res) => {
-    return {
-      ...res,
-      name: `${res.firstName} ${res.lastName}`,
-    };
-  });
 
 
   const roomTableData = {
     columns: [
-      { Header: "firstname", accessor: "name", width: "25%" },
+      { Header: "firstname", accessor: "firstName", width: "25%" },
+      { Header: "lastname", accessor: "lastName", width: "20%" },
       { Header: "course", accessor: "course" },
     ],
   
-
-    rows: teachersData
+    rows: teachers
   };
-
-  console.log(newTeacher);
-  console.log(user);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -104,31 +85,25 @@ function EditTeachers() {
                 <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
                   <MDBox>
                     <MDTypography variant="h5" fontWeight="medium">
-                      教授追加
+                      ステータス変更
                     </MDTypography>
                   </MDBox>
-                    <MDButton variant="contained" color="info"
-                    onClick={postTeacher}
-                    >POST
+                    <MDButton variant="contained" color="info">PUT
                     </MDButton>
                 </MDBox>
               
                 <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="40%">  
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">  
                     <MDInput
-                      placeholder="苗字"
+                      placeholder="300"
                       fullWidth
-                      value={newTeacher.firstName}
-                      //newTeacherの中にlastNameとして格納
-                      onChange={handleFirstNameChange}
                     />
                   </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="40%">
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
                     <MDInput
-                      placeholder="名前"
-                      value={newTeacher.lastName}
+                      placeholder="自習室"
                       fullWidth
-                      onChange={handleLastNameChange}
+                      onChange={(e) => setNewRoomStatus(e.target.value)}
                     />
                   </MDBox>
                 </MDBox>
@@ -156,9 +131,9 @@ function EditTeachers() {
                   </MDBox>
                   <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
                     <MDInput
-                      placeholder="太郎"
+                      placeholder="自習室"
                       fullWidth
-                      
+                      onChange={(e) => setNewRoomStatus(e.target.value)}
                     />
                   </MDBox>
                 </MDBox>
@@ -188,6 +163,7 @@ function EditTeachers() {
                     <MDInput
                       placeholder="自習室"
                       fullWidth
+                      onChange={(e) => setNewRoomStatus(e.target.value)}
                     />
                   </MDBox>
                 </MDBox>

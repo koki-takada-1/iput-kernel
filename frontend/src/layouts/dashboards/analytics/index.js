@@ -62,7 +62,7 @@ function Analytics() {
         
         <MDBox mt={6}>
           <Grid container spacing={3} >
-            <Grid item xs={12} md={6} lg={4}  >
+            <Grid item xs={12} md={6} lg={6}  >
               <Card style={cardStyle}>
                 <MDBox p={1}>
                   <MDBox mt={3} mb={1} >
@@ -119,7 +119,7 @@ function Analytics() {
               </Card>
             </Grid>
 
-            <Grid item xs={12} md={6} lg={2}>
+            <Grid item xs={12} md={4} lg={2}>
               <MDBox mb={3}>
               <DefaultInfoCard
                 icon="chat"
