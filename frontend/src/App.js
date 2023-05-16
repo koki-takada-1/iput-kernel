@@ -128,8 +128,8 @@ export default function App() {
         {layout === "vr" && <Configurator />}
         <Routes>
           {getRoutes(routes)}
-          
-          {/*<Route path="*" element={<Navigate to="/dashboards/analytics" />} /> */}
+          <Route path="*" element={user ? <Navigate to="/dashboards" /> : <Cover />} />
+       
         </Routes>
       </ThemeProvider>
     </CacheProvider>
