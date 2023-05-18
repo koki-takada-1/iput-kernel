@@ -1,51 +1,54 @@
-import { useContext ,useState} from "react";
-
-// react-router-dom components
+import { useContext, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-
-// Auth Context
 import { AuthContext } from "states/AuthContext";
-
-// @mui material components
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
-
-// Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDInput from "components/MDInput";
 import MDButton from "components/MDButton";
 import MDAlert from "components/MDAlert";
-
-// Authentication layout components
 import CoverLayout from "layouts/authentication/components/CoverLayout";
-
-// Images
 import bgImage from "assets/images/bg-sign-in-cover.jpeg";
 import { loginCall } from "actionCalls";
 
-
 function Cover() {
   const [rememberMe, setRememberMe] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { user, isFetching, error, dispatch} = useContext(AuthContext);
+  const { user, isFetching, error, dispatch } = useContext(AuthContext);
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
   
   const handleLogin = (e) => {
     e.preventDefault();
-    loginCall({
-      email: email,
-      password: password
-    }, dispatch
-    );
+    
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    
+    if (!validateEmail(email)) {
+      // メールアドレスが無効な場合の処理
+      // エラーメッセージを設定してログイン処理を中断する
+      dispatch({ type: "LOGIN_ERROR", payload: "無効なメールアドレスです" });
+      return;
+    }
+    
+    loginCall({ email, password }, dispatch);
   };
-  
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const domainRegex = /@tks\.iput\.ac\.jp$/i;
+    return emailRegex.test(email) && domainRegex.test(email);
+  };
+
   return (
     <CoverLayout image={bgImage}>
-      <MDAlert color="error" dismissible>ログイン失敗！</MDAlert>
+      {error && (
+        <MDAlert color="error" dismissible>
+          ログイン失敗！
+        </MDAlert>
+      )}
       <Card>
         <MDBox
           variant="gradient"
@@ -66,19 +69,20 @@ function Cover() {
           </MDTypography>
         </MDBox>
         <MDBox pt={4} pb={3} px={3}>
-          <MDBox component="form" role="form">
-            <MDBox mb={2}>
-              <MDInput
-                type="email"
-                label="Email"
-                variant="standard"
-                fullWidth
-                placeholder="tk*@tks.iput.ac.jp"
-                InputLabelProps={{ shrink: true }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </MDBox>
+          <form onSubmit={handleLogin}>
+          <MDBox mb={2}>
+            <MDInput
+              type="email"
+              label="Email"
+              variant="standard"
+              fullWidth
+              placeholder="tk*@tks.iput.ac.jp"
+              InputLabelProps={{ shrink: true }}
+              inputRef={emailRef}
+              error={error && !validateEmail(emailRef.current?.value)}
+              helperText={error && !validateEmail(emailRef.current?.value) && "無効なメールアドレスです"}
+            />
+          </MDBox>
             <MDBox mb={2}>
               <MDInput
                 type="password"
@@ -87,8 +91,7 @@ function Cover() {
                 fullWidth
                 placeholder="************"
                 InputLabelProps={{ shrink: true }}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                inputRef={passwordRef}
               />
             </MDBox>
             <MDBox display="flex" alignItems="center" ml={-1}>
@@ -108,7 +111,7 @@ function Cover() {
                 variant="gradient"
                 color="info"
                 fullWidth
-                onClick={handleLogin}
+                type="submit"
                 >
                 Log in
               </MDButton>
@@ -128,7 +131,7 @@ function Cover() {
                 </MDTypography>
               </MDTypography>
             </MDBox>
-          </MDBox>
+          </form>
         </MDBox>
       </Card>
     </CoverLayout>

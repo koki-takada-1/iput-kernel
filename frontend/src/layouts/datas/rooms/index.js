@@ -17,9 +17,6 @@ import { useEffect , useState } from "react";
 
 function Rooms() {
   const [rooms, setRooms] = useState([]); // 追加
-  const [newRoomName, setNewRoomName] = useState([]); // 追加
-  const [newRoomNumber, setNewRoomNumber] = useState([]); // 追加
-  const [newStatus, setNewRoomStatus] = useState([]); // 追加
   
   // axiosでpostする関数を作成
   const postRoom = async () => {
@@ -103,7 +100,7 @@ function Rooms() {
                     <MDInput
                       placeholder="自習室"
                       fullWidth
-                      onChange={(e) => setNewRoomStatus(e.target.value)}
+                      
                     />
                   </MDBox>
                 </MDBox>
@@ -133,7 +130,7 @@ function Rooms() {
                     <MDInput
                       placeholder="自習室"
                       fullWidth
-                      onChange={(e) => setNewRoomStatus(e.target.value)}
+                      
                     />
                   </MDBox>
                 </MDBox>
@@ -163,7 +160,7 @@ function Rooms() {
                     <MDInput
                       placeholder="自習室"
                       fullWidth
-                      onChange={(e) => setNewRoomStatus(e.target.value)}
+                     
                     />
                   </MDBox>
                 </MDBox>

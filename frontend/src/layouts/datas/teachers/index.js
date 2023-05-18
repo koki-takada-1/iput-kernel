@@ -17,7 +17,7 @@ import { useEffect , useState ,useContext ,useRef} from "react";
 import { AuthContext } from "states/AuthContext";
 import { eventTupleToStore } from "@fullcalendar/react";
 
-function EditTeachers() {
+function Teachers() {
   const [teachers, setTeachers] = useState([]); // 追加
 
   const newFirstNameRef = useRef(null);
@@ -182,4 +182,4 @@ function EditTeachers() {
     </DashboardLayout>
   );
 };
-export default EditTeachers;
+export default Teachers;

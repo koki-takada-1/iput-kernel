@@ -51,7 +51,7 @@ import SignInIllustration from "layouts/authentication/sign-in/illustration";
 import SignUpCover from "layouts/authentication/sign-up/cover";
 import ResetCover from "layouts/authentication/reset-password/cover";
 import Rooms from "layouts/datas/rooms";
-import EditTeacher from "layouts/datas/edit-teacher";
+import Teachers from "layouts/datas/teachers";
 import HelpPage from "layouts/pages/help-page";
 
 // Material Dashboard 2 PRO React components
@@ -137,10 +137,10 @@ const routes = [
         component: <Rooms />,
       },
       {
-        name: "Edit Teacher",
-        key: "edit-teacher",
-        route: "/datas/edit-Teacher",
-        component: <EditTeacher />,
+        name: "Teacher",
+        key: "teachers",
+        route: "/datas/teacher",
+        component: <Teachers />,
       },
     ],
 
