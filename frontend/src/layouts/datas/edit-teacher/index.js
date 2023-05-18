@@ -13,34 +13,19 @@ import Footer from "examples/Footer";
 import DataTable from "examples/Tables/DataTable";
 
 import axios from "axios";
-import { useEffect , useState ,useContext} from "react";
+import { useEffect , useState ,useContext ,useRef} from "react";
 import { AuthContext } from "states/AuthContext";
 import { eventTupleToStore } from "@fullcalendar/react";
 
 function EditTeachers() {
   const [teachers, setTeachers] = useState([]); // 追加
-  const [newTeacher, setNewTeacher] = useState({firstName:'',lastName:'',course:''}); // 追加
-  const [deleteTeacherId, setDeleteTeacherId] = useState(''); // 追加
+
+  const newFirstNameRef = useRef(null);
+  const newLastNameRef = useRef(null);
+  const newCourseRef = useRef(null);
+  const deleteTeacherIdRef = useRef(null);
+
   const { user } = useContext(AuthContext);
-
-  // handler functions 
-
-  const handleFirstNameChange = (event) => {
-    const newFirstName = event.target.value;
-    setNewTeacher((prevData) => ({ ...prevData, firstName: newFirstName }));
-  };
-  const handleLastNameChange = (event) => {
-    const newLastName = event.target.value;
-    setNewTeacher((prevData) => ({ ...prevData, lastName: newLastName }));
-  };
-  const handleCourseChange = (event) => {
-    const newCourse = event.target.value;
-    setNewTeacher((prevData) => ({ ...prevData, course: newCourse }));
-  };
-  const handleDeleteTeacherIdChange = (event) => {
-    const newDeleteTeacherId = event.target.value;
-    setDeleteTeacherId(newDeleteTeacherId);
-  };
 
 
   const fetchTeachers = async () => {
@@ -50,9 +35,13 @@ function EditTeachers() {
   };
   
   // axiosでpostする関数を作成
-  const postTeacher = async () => {
-    //newTeacherにuserのidを追加
-    newTeacher.userId = user._id;
+  const postTeacher = async () => {    
+    const newTeacher = {
+      firstName: newFirstNameRef.current.value,
+      lastName: newLastNameRef.current.value,
+      course: newCourseRef.current.value,
+      userId: user._id,
+    };
     const res = await axios.post("/teachers/",newTeacher);
     console.log(res.data);
     fetchTeachers();
@@ -60,7 +49,7 @@ function EditTeachers() {
 
   // axiosでdeleteする関数を作成
   const deleteTeacher = async () => {
-    const res = await axios.delete("/teachers/"+deleteTeacherId, {data:{userId:user._id}});
+    const res = await axios.delete("/teachers/"+deleteTeacherIdRef.current.value, {data:{userId:user._id}});
     fetchTeachers();
   };
 
@@ -88,9 +77,7 @@ function EditTeachers() {
     rows: teachersData
   };
 
-  console.log(newTeacher);
   console.log(user);
-  console.log(deleteTeacherId);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -136,21 +123,26 @@ function EditTeachers() {
                 </MDBox>
               
                 <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="40%">  
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">  
                     <MDInput
                       placeholder="苗字"
                       fullWidth
-                      value={newTeacher.firstName}
                       //newTeacherの中にlastNameとして格納
-                      onChange={handleFirstNameChange}
+                      inputRef={newFirstNameRef}
                     />
                   </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="40%">
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
                     <MDInput
-                      placeholder="名前"
-                      value={newTeacher.lastName}
+                      placeholder="名前"          
                       fullWidth
-                      onChange={handleLastNameChange}
+                      inputRef={newLastNameRef}
+                    />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="20%">
+                    <MDInput
+                      placeholder="コース"
+                      fullWidth
+                      inputRef={newCourseRef}
                     />
                   </MDBox>
                 </MDBox>
@@ -173,8 +165,8 @@ function EditTeachers() {
                   <MDBox flex="1 1 auto" mr={1} >  
                     <MDInput
                       placeholder="ID"
-                      onChange={handleDeleteTeacherIdChange}
                       fullWidth
+                      inputRef={deleteTeacherIdRef}
                     />
                   </MDBox>
                 </MDBox>
