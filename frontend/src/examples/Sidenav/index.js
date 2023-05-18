@@ -33,7 +33,8 @@ import {
   setWhiteSidenav,
 } from "context";
 
-function Sidenav({ color, brand, brandName, routes, ...rest }) {
+function Sidenav({ color, brand, brandName, routes,username, ...rest }) {
+  
   const [openCollapse, setOpenCollapse] = useState(false);
   const [openNestedCollapse, setOpenNestedCollapse] = useState(false);
   const [controller, dispatch] = useMaterialUIController();
@@ -148,7 +149,12 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
   const renderRoutes = routes.map(
     ({ type, name, icon, title, collapse, noCollapse, key, href, route }) => {
       let returnValue;
-
+  
+      if (key === "username") {
+        // "username"の場合はnameを変更する
+        name = username;
+      }
+  
       if (type === "collapse") {
         if (href) {
           returnValue = (
@@ -160,11 +166,15 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
               sx={{ textDecoration: "none" }}
             >
               <SidenavCollapse
+                key={key}
                 name={name}
                 icon={icon}
                 active={key === collapseName}
-                noCollapse={noCollapse}
-              />
+                open={openCollapse === key}
+                onClick={() => (openCollapse === key ? setOpenCollapse(false) : setOpenCollapse(key))}
+              >
+                {collapse ? renderCollapse(collapse) : null}
+              </SidenavCollapse>
             </Link>
           );
         } else if (noCollapse && route) {
@@ -222,7 +232,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
           />
         );
       }
-
+  
       return returnValue;
     }
   );

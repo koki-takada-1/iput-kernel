@@ -7,7 +7,6 @@ const RoomSchema = new mongoose.Schema({
     },
     roomNumber: {
         type: Number,
-        default: "",
     },
     status: {
         type: String,

@@ -63,12 +63,12 @@ import Icon from "@mui/material/Icon";
 // Images
 import profilePicture from "assets/images/Lenna.png";
 
+
 const routes = [
   
   {
     type: "collapse",
-    name: "黒羽 晟",
-    key: "brooklyn-alice",
+    key: "username",
     icon: <MDAvatar src={profilePicture} alt="Brooklyn Alice" size="sm" />,
     collapse: [
       {

@@ -76,7 +76,7 @@ function Cover() {
               label="Email"
               variant="standard"
               fullWidth
-              placeholder="tk*@tks.iput.ac.jp"
+              placeholder="tk******@tks.iput.ac.jp"
               InputLabelProps={{ shrink: true }}
               inputRef={emailRef}
               error={error && !validateEmail(emailRef.current?.value)}

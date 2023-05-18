@@ -1,12 +1,17 @@
 const router = require('express').Router();
 const Room = require('../models/Room');
+const User = require('../models/User');
 
-//Room作成
 router.post("/", async (req,res) => {
-    const newRoom = new Room(req.body);
     try{
-        const savedRoom = await newRoom.save();
-        res.status(200).json(savedRoom);
+        const newRoom = new Room(req.body);
+        const user = await User.findById(req.body.userId);
+        if(user.isAdmin || user.credLevel >= 4){
+            const savedRoom = await newRoom.save();
+            res.status(200).json(savedRoom);
+        }else{
+            return res.status(403).json("権限がありません。");
+        }
     }catch(err){
         return res.status(500).json(err);
     }
@@ -33,27 +38,52 @@ router.get("/:id", async (req,res) => {
 });
 
 //特定のroomを更新
-router.put("/:id", async (req,res) => {
-    try{
-        const room = await Room.findById(req.params.id);
+router.put("/number/:number", async (req,res) => {
+    try {
+        const room = await Room.findOne({roomNumber: req.params.number});
+        if (!room) {
+            return res.status(404).json("room not found");
+        }
         await room.updateOne({
             $set: req.body,
         });
         return res.status(200).json("roomが更新されました");
-    }catch(err){
-        return res.status(500).json(err);
+    } catch(err) {
+        return res.status(500).json(err.message || "Something went wrong");
     }
 });
         
-//特定のroomを削除
+
+// userが管理者、もしくは信用レベルが4以上の場合にroomを削除
 router.delete("/:id", async (req,res) => {
     try{
         const room = await Room.findById(req.params.id);
-        await room.deleteOne();
-        return res.status(200).json("roomが削除されました");
+        const user = await User.findById(req.body.userId);
+        if(user.isAdmin || user.credLevel >= 4){
+            await room.deleteOne();
+            return res.status(200).json("roomが削除されました");
+        }else{
+            return res.status(403).json("権限がありません。");
+        }
     }catch(err){
         return res.status(500).json(err);
     }
 });
+
+router.delete("/number/:number", async (req,res) => {
+    try{
+        const room = await Room.findOne({roomNumber: req.params.number});
+        const user = await User.findById(req.body.userId);
+        if(user.isAdmin || user.credLevel >= 4){
+            await room.deleteOne();
+            return res.status(200).json("roomが削除されました");
+        }else{
+            return res.status(403).json("権限がありません。");
+        }
+    }catch(err){
+        return res.status(500).json(err);
+    }
+});
+
 
 module.exports = router;

@@ -15,7 +15,6 @@ import Icon from "@mui/material/Icon";
 
 // Material Dashboard 2 PRO React components
 import MDBox from "components/MDBox";
-import MDInput from "components/MDInput";
 import MDBadge from "components/MDBadge";
 
 // Material Dashboard 2 PRO React examples
