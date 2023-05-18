@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Teacher = require('../models/Teacher');
 const User = require('../models/User');
+
 // Create a teacher but only admin or has cred-level of 4 or higher
 router.post("/", async (req,res) => {
     try{
@@ -15,7 +16,7 @@ router.post("/", async (req,res) => {
                 return res.status(500).json(err);
             }
         }else{
-            return res.status(403).json("teacherを作成できません");
+            return res.status(403).json("権限がありません。");
         }
     }catch(err){
         return res.status(500).json(err);
@@ -56,6 +57,8 @@ router.put("/:id", async (req,res) => {
         return res.status(500).json(err);
     }
 });
+
+
 // Delete a teacher but only admin or has cred-level of 4 or higher
 router.delete("/:id", async (req,res) => {
     try{
@@ -71,4 +74,5 @@ router.delete("/:id", async (req,res) => {
         return res.status(500).json(err);
     }
 });
+
 module.exports = router;

@@ -15,11 +15,16 @@ import DataTable from "examples/Tables/DataTable";
 import axios from "axios";
 import { useEffect , useState ,useContext} from "react";
 import { AuthContext } from "states/AuthContext";
+import { eventTupleToStore } from "@fullcalendar/react";
 
 function EditTeachers() {
   const [teachers, setTeachers] = useState([]); // 追加
   const [newTeacher, setNewTeacher] = useState({firstName:'',lastName:'',course:''}); // 追加
+  const [deleteTeacherId, setDeleteTeacherId] = useState(''); // 追加
   const { user } = useContext(AuthContext);
+
+  // handler functions 
+
   const handleFirstNameChange = (event) => {
     const newFirstName = event.target.value;
     setNewTeacher((prevData) => ({ ...prevData, firstName: newFirstName }));
@@ -32,20 +37,35 @@ function EditTeachers() {
     const newCourse = event.target.value;
     setNewTeacher((prevData) => ({ ...prevData, course: newCourse }));
   };
+  const handleDeleteTeacherIdChange = (event) => {
+    const newDeleteTeacherId = event.target.value;
+    setDeleteTeacherId(newDeleteTeacherId);
+  };
+
+
+  const fetchTeachers = async () => {
+    const res = await axios.get("/teachers/");
+    console.log(res.data);
+    setTeachers(res.data);
+  };
+  
   // axiosでpostする関数を作成
   const postTeacher = async () => {
     //newTeacherにuserのidを追加
     newTeacher.userId = user._id;
     const res = await axios.post("/teachers/",newTeacher);
     console.log(res.data);
+    fetchTeachers();
+  };
+
+  // axiosでdeleteする関数を作成
+  const deleteTeacher = async () => {
+    const res = await axios.delete("/teachers/"+deleteTeacherId, {data:{userId:user._id}});
+    fetchTeachers();
   };
 
   useEffect (() => {
-    const fetchTeachers = async () => {
-      const res = await axios.get("/teachers/");
-      console.log(res.data);
-      setTeachers(res.data);
-    };
+    
     fetchTeachers();
   }, []);
   //res.dataのfirstNameとlastNameを結合してnameとして表示する
@@ -59,7 +79,8 @@ function EditTeachers() {
 
   const roomTableData = {
     columns: [
-      { Header: "firstname", accessor: "name", width: "25%" },
+      { Header: "id", accessor: "_id", width: "35%" },
+      { Header: "name", accessor: "name", width: "25%" },
       { Header: "course", accessor: "course" },
     ],
   
@@ -69,6 +90,7 @@ function EditTeachers() {
 
   console.log(newTeacher);
   console.log(user);
+  console.log(deleteTeacherId);
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -139,60 +161,26 @@ function EditTeachers() {
                 <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
                   <MDBox>
                     <MDTypography variant="h5" fontWeight="medium">
-                      教室削除
+                      教員削除
                     </MDTypography>
                   </MDBox>
-                    <MDButton variant="contained" color="error">DELETE
+                    <MDButton variant="contained" color="error" onClick={deleteTeacher}>DELETE
                     </MDButton>
                 </MDBox>
               
                 <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
                 
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">  
+                  <MDBox flex="1 1 auto" mr={1} >  
                     <MDInput
-                      placeholder="300"
-                      fullWidth
-                    />
-                  </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
-                    <MDInput
-                      placeholder="太郎"
-                      fullWidth
-                      
-                    />
-                  </MDBox>
-                </MDBox>
-              </Card>
-            </MDBox>
-            <MDBox>
-              <Card>
-                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
-                  <MDBox>
-                    <MDTypography variant="h5" fontWeight="medium">
-                      教室追加
-                    </MDTypography>
-                  </MDBox>
-                    <MDButton variant="contained" color="warning">POST
-                    </MDButton>
-                </MDBox>
-              
-                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="60%">  
-                    
-                    <MDInput
-                      placeholder="300"
-                      fullWidth
-                    />
-                  </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="20%">
-                    <MDInput
-                      placeholder="自習室"
+                      placeholder="ID"
+                      onChange={handleDeleteTeacherIdChange}
                       fullWidth
                     />
                   </MDBox>
                 </MDBox>
               </Card>
             </MDBox>
+            
           </Grid>
         </Grid>
         
