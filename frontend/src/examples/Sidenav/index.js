@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
+import { AuthContext } from "states/AuthContext";
 
 // react-router-dom components
 import { useLocation, NavLink } from "react-router-dom";
@@ -33,7 +34,7 @@ import {
   setWhiteSidenav,
 } from "context";
 
-function Sidenav({ color, brand, brandName, routes,username, ...rest }) {
+function Sidenav({ color, brand, brandName, routes, ...rest }) {
   
   const [openCollapse, setOpenCollapse] = useState(false);
   const [openNestedCollapse, setOpenNestedCollapse] = useState(false);
@@ -45,6 +46,8 @@ function Sidenav({ color, brand, brandName, routes,username, ...rest }) {
   const items = pathname.split("/").slice(1);
   const itemParentName = items[1];
   const itemName = items[items.length - 1];
+
+  const { user } = useContext(AuthContext);
 
   let textColor = "white";
 
@@ -149,12 +152,15 @@ function Sidenav({ color, brand, brandName, routes,username, ...rest }) {
   const renderRoutes = routes.map(
     ({ type, name, icon, title, collapse, noCollapse, key, href, route }) => {
       let returnValue;
-  
-      if (key === "username") {
-        // "username"の場合はnameを変更する
-        name = username;
+      try{
+        if (key === "username" && user.username !== null) {
+          // "username"の場合はnameを変更する
+          name = user.username;
+        }
+      }catch(e){
+        console.log(e);
       }
-  
+      
       if (type === "collapse") {
         if (href) {
           returnValue = (
