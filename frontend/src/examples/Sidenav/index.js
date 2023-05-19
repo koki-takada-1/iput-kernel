@@ -153,14 +153,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     ({ type, name, icon, title, collapse, noCollapse, key, href, route }) => {
       let returnValue;
       try{
-        if (key === "username" && user.username !== null) {
+        if (key === "username") {
           // "username"の場合はnameを変更する
           name = user.username;
         }
       }catch(e){
         console.log(e);
       }
-      
+
       if (type === "collapse") {
         if (href) {
           returnValue = (

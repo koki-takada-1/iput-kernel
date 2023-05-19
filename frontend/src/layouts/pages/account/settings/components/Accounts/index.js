@@ -1,19 +1,5 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
 
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-import { useState } from "react";
+import { useState ,useContext} from "react";
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -37,6 +23,7 @@ import logoAsana from "assets/images/small-logos/logo-asana.svg";
 
 // Material Dashboard 2 PRO React components
 import { useMaterialUIController } from "context";
+import { AuthContext } from "states/AuthContext";
 
 function Accounts() {
   const [controller] = useMaterialUIController();
@@ -52,6 +39,7 @@ function Accounts() {
   const handleSetAtlassian2FA = () => setAtlassian2FA(!atlassian2FA);
   const handleSetAsana2FA = () => setAsana2FA(!asana2FA);
 
+  const { user } = useContext(AuthContext);
   return (
     <Card id="accounts">
       <MDBox p={3} lineHeight={1}>

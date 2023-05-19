@@ -1,17 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
 
 // @mui material components
 import Card from "@mui/material/Card";
@@ -25,10 +11,10 @@ import MDInput from "components/MDInput";
 
 function ChangePassword() {
   const passwordRequirements = [
-    "One special characters",
-    "Min 6 characters",
-    "One number (2 are recommended)",
-    "Change it often",
+    "特殊文字などの記号や英数字を併用する",
+    "できるだけ長いパスワード",
+    "誕生日など自分と関連する情報を含まない",
+    "たまに変える。",
   ];
 
   const renderPasswordRequirements = passwordRequirements.map((item, key) => {
@@ -73,11 +59,11 @@ function ChangePassword() {
           </Grid>
         </Grid>
         <MDBox mt={6} mb={1}>
-          <MDTypography variant="h5">Password requirements</MDTypography>
+          <MDTypography variant="h5">Password reccomands</MDTypography>
         </MDBox>
         <MDBox mb={1}>
           <MDTypography variant="body2" color="text">
-            Please follow this guide for a strong password
+            別にパスワードに制限を設けてませんが、ハッキングされたくないなら以下を推奨します。
           </MDTypography>
         </MDBox>
         <MDBox display="flex" justifyContent="space-between" alignItems="flex-end" flexWrap="wrap">

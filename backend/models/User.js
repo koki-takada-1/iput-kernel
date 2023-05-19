@@ -95,6 +95,14 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    isAnonymous: {
+        type: Boolean,
+        default: true,
+    },
+    isFirstTime: {
+        type: Boolean,
+        default: true,
+    },
     credLevel: {
         type: Number,
         default: 2,

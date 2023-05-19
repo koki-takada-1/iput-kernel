@@ -1,17 +1,5 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+import {useContext} from "react";
+import { AuthContext } from "states/AuthContext";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -52,6 +40,13 @@ import team3 from "assets/images/team-3.jpg";
 import team4 from "assets/images/team-4.jpg";
 
 function Overview() {
+  let fullname = "";
+  const {user} = useContext(AuthContext);
+  if(!user.isAnonymous){
+    fullname = user.firstName + " " + user.lastName;
+  }else{
+    fullname = "Anonymous";
+  }
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -68,7 +63,7 @@ function Overview() {
                 title="profile information"
                 description="Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality)."
                 info={{
-                  fullName: "Alec M. Thompson",
+                  fullName: fullname,
                   mobile: "(44) 123 1234 123",
                   email: "alecthompson@mail.com",
                   location: "USA",
@@ -124,6 +119,7 @@ function Overview() {
                   color: "info",
                   label: "view project",
                 }}
+                
                 authors={[
                   { image: team1, name: "Elena Morison" },
                   { image: team2, name: "Ryan Milly" },
