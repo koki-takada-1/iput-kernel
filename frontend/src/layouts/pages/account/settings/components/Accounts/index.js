@@ -40,6 +40,7 @@ function Accounts() {
   const handleSetAsana2FA = () => setAsana2FA(!asana2FA);
 
   const { user } = useContext(AuthContext);
+  
   return (
     <Card id="accounts">
       <MDBox p={3} lineHeight={1}>

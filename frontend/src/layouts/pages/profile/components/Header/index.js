@@ -26,13 +26,7 @@ function Header({ children }) {
 
   const {user} = useContext(AuthContext);
 
-  if(user.isAnonymous){
-    const fullname = "Anonymous";
-  }
-  else{
-    const fullname = user.first_name + " " + user.last_name;
-  }
-  
+
   let status = "";
   if (!user.isAdmin) {
     switch (user.credLevel) {
