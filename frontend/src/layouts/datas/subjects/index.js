@@ -40,7 +40,7 @@ function Subjects() {
       grade: newSubjectGradeRef.current.value,
       subjectName: newSubjectNameRef.current.value,
       count: newSubjectCountRef.current.value,
-      isRequire: newSubjectisRequireRef.current.value === "必須" ? true : false,
+      isRequire: newSubjectisRequireRef.current.value === "必修" ? true : false,
       userId: user._id,
     });
     fetchSubjects();
