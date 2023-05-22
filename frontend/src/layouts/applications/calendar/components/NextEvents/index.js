@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 // @mui material components
 import Card from "@mui/material/Card";
 
@@ -28,7 +13,7 @@ function NextEvents() {
     <Card sx={{ height: "100%" }}>
       <MDBox pt={2} px={2}>
         <MDTypography variant="h6" fontWeight="medium">
-          Next events
+          イベント
         </MDTypography>
       </MDBox>
       <MDBox p={2}>
@@ -62,14 +47,7 @@ function NextEvents() {
             description="25 March 2021, at 2:00 PM"
           />
         </MDBox>
-        <MDBox mt={3.5}>
-          <DefaultItem
-            color="dark"
-            icon="palette"
-            title="Verify Dashboard Color Palette"
-            description="26 March 2021, at 9:00 AM"
-          />
-        </MDBox>
+        
       </MDBox>
     </Card>
   );

@@ -48,6 +48,8 @@ import SignUpCover from "layouts/authentication/sign-up/cover";
 import ResetCover from "layouts/authentication/reset-password/cover";
 import Rooms from "layouts/datas/rooms";
 import Teachers from "layouts/datas/teachers";
+import Classes from "layouts/datas/classes";
+import Timelines from "layouts/datas/timelines";
 import HelpPage from "layouts/pages/help-page";
 
 // Material Dashboard 2 PRO React components
@@ -112,10 +114,22 @@ const routes = [
         component: <Rooms />,
       },
       {
-        name: "Teacher",
+        name: "Teachers",
         key: "teachers",
-        route: "/datas/teacher",
+        route: "/datas/teachers",
         component: <Teachers />,
+      },
+      {
+        name: "Classes",
+        key: "classes",
+        route: "/datas/classes",
+        component: <Classes />,
+      },
+      {
+        name: "Timelines",
+        key: "timelines",
+        route: "/datas/timelines",
+        component: <Timelines />,
       },
     ],
 

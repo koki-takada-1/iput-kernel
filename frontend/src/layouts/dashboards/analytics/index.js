@@ -12,25 +12,71 @@ import Card from "@mui/material/Card";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import Footer from "examples/Footer";
-import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
-import ComplexStatisticsCard from "examples/Cards/StatisticsCards/ComplexStatisticsCard";
-import BookingCard from "examples/Cards/BookingCard";
 import DefaultInfoCard from "examples/Cards/InfoCards/DefaultInfoCard";
+import EventCalendar from "examples/Calendar";
 
-// Anaytics dashboard components
-import SalesByCountry from "layouts/dashboards/analytics/components/SalesByCountry";
-
-// Data
-import reportsBarChartData from "layouts/dashboards/analytics/data/reportsBarChartData";
-import reportsLineChartData from "layouts/dashboards/analytics/data/reportsLineChartData";
-
-// Images
-import booking1 from "assets/images/products/product-1-min.jpg";
-import booking2 from "assets/images/products/product-2-min.jpg";
-import booking3 from "assets/images/products/product-3-min.jpg";
+import NextEvents from "layouts/applications/calendar/components/NextEvents";
+import { useMemo } from "react";
 
 function Analytics() {
-  const { sales, tasks } = reportsLineChartData;
+  const calendarEventsData = [
+    {
+      title: "All day conference",
+      start: "2021-08-01",
+      end: "2021-08-01",
+      className: "success",
+    },
+  
+    {
+      title: "Meeting with Mary",
+      start: "2021-08-03",
+      end: "2021-08-03",
+      className: "info",
+    },
+  
+    {
+      title: "Cyber Week",
+      start: "2021-08-04",
+      end: "2021-08-04",
+      className: "warning",
+    },
+  
+    {
+      title: "Winter Hackaton",
+      start: "2021-08-05",
+      end: "2021-08-05",
+      className: "error",
+    },
+  
+    {
+      title: "Digital event",
+      start: "2021-08-09",
+      end: "2021-08-11",
+      className: "warning",
+    },
+  
+    {
+      title: "Marketing event",
+      start: "2021-08-12",
+      end: "2021-08-12",
+      className: "primary",
+    },
+  
+    {
+      title: "Dinner with Family",
+      start: "2021-08-21",
+      end: "2021-08-21",
+      className: "error",
+    },
+  
+    {
+      title: "Black Friday",
+      start: "2021-08-25",
+      end: "2021-08-25",
+      className: "info",
+    },
+  ];
+
   const cardStyle = {
     backgroundColor: '#ebeced'
   };
@@ -58,11 +104,10 @@ function Analytics() {
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox py={3}>
-        
-        <MDBox mt={6}>
-          <Grid container spacing={3} >
-            <Grid item xs={12} md={6} lg={6}  >
+      <MDBox py={1}>
+        <MDBox mt={1}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={10} lg={7}  >
               <Card style={cardStyle}>
                 <MDBox p={1}>
                   <MDBox mt={3} mb={1} >
@@ -121,126 +166,47 @@ function Analytics() {
 
             <Grid item xs={12} md={4} lg={2}>
               <MDBox mb={3}>
-              <DefaultInfoCard
-                icon="chat"
-                title="談話室"
-                value="312"
-              />
+                <DefaultInfoCard
+                  icon="chat"
+                  title="談話室"
+                  value="312"
+                />
               </MDBox>
               <MDBox mb={3}>
-              <DefaultInfoCard
-                icon="school"
-                title="自習室"
-                value="322"
-              />
+                <DefaultInfoCard
+                  icon="school"
+                  title="自習室"
+                  value="322"
+                />
               </MDBox>
+            </Grid>
+
+            <Grid item xs={12} xl={3}>
+              <MDBox mb={3}>
+                <NextEvents />
+              </MDBox>
+            </Grid>`
+          </Grid>
+          <Grid container spacing={3} >
+            <Grid item xs={12} xl={9} sx={{ height: "max-content" }}>
+              {useMemo(
+                () => (
+                  <EventCalendar
+                    initialView="dayGridMonth"
+                    initialDate="2021-08-10"
+                    events={calendarEventsData}
+                    selectable
+                    editable
+                  />
+                ),
+                [calendarEventsData]
+              )}
             </Grid>
           </Grid>
         </MDBox>
-        <MDBox mt={1.5}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  color="dark"
-                  icon="weekend"
-                  title="Bookings"
-                  count={281}
-                  percentage={{
-                    color: "success",
-                    amount: "+55%",
-                    label: "than lask week",
-                  }}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  icon="leaderboard"
-                  title="Today's Users"
-                  count="2,300"
-                  percentage={{
-                    color: "success",
-                    amount: "+3%",
-                    label: "than last month",
-                  }}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  color="success"
-                  icon="store"
-                  title="Revenue"
-                  count="34k"
-                  percentage={{
-                    color: "success",
-                    amount: "+1%",
-                    label: "than yesterday",
-                  }}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <MDBox mb={1.5}>
-                <ComplexStatisticsCard
-                  color="primary"
-                  icon="person_add"
-                  title="Followers"
-                  count="+91"
-                  percentage={{
-                    color: "success",
-                    amount: "",
-                    label: "Just updated",
-                  }}
-                />
-              </MDBox>
-            </Grid>
-          </Grid>
-        </MDBox>
-        <MDBox mt={2}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={booking1}
-                  title="Cozy 5 Stars Apartment"
-                  description='The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Barcelona.'
-                  price="$899/night"
-                  location="Barcelona, Spain"
-                  action={actionButtons}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={booking2}
-                  title="Office Studio"
-                  description='The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.'
-                  price="$1.119/night"
-                  location="London, UK"
-                  action={actionButtons}
-                />
-              </MDBox>
-            </Grid>
-            <Grid item xs={12} md={6} lg={4}>
-              <MDBox mt={3}>
-                <BookingCard
-                  image={booking3}
-                  title="Beautiful Castle"
-                  description='The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.'
-                  price="$459/night"
-                  location="Milan, Italy"
-                  action={actionButtons}
-                />
-              </MDBox>
-            </Grid>
-          </Grid>
-        </MDBox>
+        
       </MDBox>
+      
       <Footer />
     </DashboardLayout>
   );

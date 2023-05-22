@@ -17,9 +17,6 @@ import CoverLayout from "layouts/authentication/components/CoverLayout";
 // Images
 import bgImage from "assets/images/bg-sign-up-cover.jpeg";
 
-import {auth} from "../../../../FirebaseConfig";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-
 
 
 function Cover() {
@@ -29,15 +26,6 @@ function Cover() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-    } catch(error) {
-      alert(error);
-    }
   };
 
   return (

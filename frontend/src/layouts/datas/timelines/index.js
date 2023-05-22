@@ -12,7 +12,7 @@ import MDInput from "components/MDInput";
 import axios from "axios";
 import { AuthContext } from "states/AuthContext";
 
-function Classes() {
+function Timelines() {
   const [rooms, setRooms] = useState([]);
   const putRoomNumberRef = useRef(null);
   const putRoomStatusRef = useRef(null);
@@ -75,7 +75,7 @@ function Classes() {
                 <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                   <MDBox lineHeight={1}>
                     <MDTypography variant="h5" fontWeight="medium">
-                      教室一覧
+                      時間割一覧
                     </MDTypography>
                     <MDTypography variant="button" color="text">
                       未ソートの場合は、生成順で表示されます。
@@ -165,4 +165,4 @@ function Classes() {
   );
 }
 
-export default Classes;
+export default Timelines;

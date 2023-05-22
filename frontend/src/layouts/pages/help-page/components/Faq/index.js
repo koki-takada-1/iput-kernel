@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Material Dashboard 2 PRO React - v2.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-pro-react
-* Copyright 2022 Creative Tim (https://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState } from "react";
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -75,17 +60,21 @@ function Faq() {
             open={collapse === 4}
             onClick={() => (collapse === 4 ? setCollapse(false) : setCollapse(4))}
           >
-            フロントエンドはReact バックエンドはgoとFirebaseで構成されています。なぜ全部go出実装しなかったかというと、認証システムを１から作るとなると面倒くさく、
-            一応私に仕事を委託してくれている物好きな企業もいますので、あまりこのプロジェクトに時間を割くことができませんでした。
+            フロントエンドはReact バックエンドはexpressとmongodbで構成されています。
+            セキュリティー上の都合でDBサーバーだけAWSです。
+            OSS活動にあたって、言語が増えると参加できるメンバーが制限されるので、
+            javascriptだけに絞りました。個人的にはgoを使いたかったんですけどね。
           </FaqCollapse>
           <FaqCollapse
             title="料金が発生することはありますか？"
             open={collapse === 5}
             onClick={() => (collapse === 5 ? setCollapse(false) : setCollapse(5))}
           >
-            こんな限られた人間しか使わないであろうシステムに広告をつけたところで泡銭なのでつけません。課金要素も面白そうなものを思いついたら実装しますが、
+            こんな限られた人間しか使わないであろうシステムに広告をつけたところで泡銭なのでつけません。
+            課金要素も面白そうなものを思いついたら実装しますが、
             （学生間あるいは学校間でスキルの売買をするなど）金が絡むと色々面倒なのでやるとしたら法人化してからやります。
-            当分はやりません。
+            当分はやらないつもりですので、もしアフィリンクやしょうもない広告があったら、「あいつ相当金欠なんだな」と思ってください。
+            ただ浄水器とかはインセンティブが3000円ぐらいあるらしいので、もしそこから買ってくれたら靴舐めます。
           </FaqCollapse>
           <FaqCollapse
             title="大学側とゴタゴタしたらどうするつもりですか？"
@@ -103,7 +92,7 @@ function Faq() {
             open={collapse === 7}
             onClick={() => (collapse === 7 ? setCollapse(false) : setCollapse(7))}
           >
-            個人で作成したものに自分の個人情報を預けられるのか不安だと思いますが、そのためのfirebaseです。僕のバックには天下のGoogleがいます。
+            個人で作成したものに自分の個人情報を預けられるのか不安だと思いますが、そのためのAWSです。僕のバックには天下のAmazonがいます。
             先程記載した代理ログインを実装するとしたら、仕組み上ハッシュ化して保存することができませんが、
             そのデータは厳重に管理され、仮に外部に送信する問題が起きたとしても、VPN等の設備も用意しております。（そのためにYAMAHAのクソ高いVPNルーターを買いました。）
           </FaqCollapse>
