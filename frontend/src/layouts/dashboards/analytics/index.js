@@ -185,9 +185,9 @@ function Analytics() {
               <MDBox mb={3}>
                 <NextEvents />
               </MDBox>
-            </Grid>`
+            </Grid>
           </Grid>
-          <Grid container spacing={3} >
+          <Grid container spacing={3} mt={1}>
             <Grid item xs={12} xl={9} sx={{ height: "max-content" }}>
               {useMemo(
                 () => (

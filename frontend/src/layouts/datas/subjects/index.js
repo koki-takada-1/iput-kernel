@@ -24,12 +24,11 @@ function Subjects() {
   const newSubjectisRequireRef = useRef(null);
   const { user } = useContext(AuthContext);
 
-
+  const fetchSubjects = async () => {
+    const res = await axios.get("/subjects/");
+    setSubjects(res.data);
+  };
   useEffect(() => {
-    const fetchSubjects = async () => {
-      const res = await axios.get("/subjects/");
-      setSubjects(res.data);
-    };
     fetchSubjects();
   }, []);
 
@@ -41,10 +40,10 @@ function Subjects() {
       grade: newSubjectGradeRef.current.value,
       subjectName: newSubjectNameRef.current.value,
       count: newSubjectCountRef.current.value,
-      isRequire: isrequire,
+      isRequire: newSubjectisRequireRef.current.value === "必須" ? true : false,
       userId: user._id,
     });
-    setSubjects((prevSubjects) => [...prevSubjects, res.data]);
+    fetchSubjects();
   };
 
   const putSubject = async () => {
@@ -60,14 +59,14 @@ function Subjects() {
     const res = await axios.delete(`/subjects/name/${deleteSubjectNameRef.current.value}`, {
       data: { userId: user._id },
     });
-    setSubjects((prevSubjects) => prevSubjects.filter((subject) => subject.subjectNumber !== res.data.subjectNumber));
+    fetchSubjects();
   };
 
   const subjectsData = subjects.map((res) => {
     return {
       ...res,
       grade: res.grade + "年",
-      count: res.count + "回",
+      count: res.count + " 回",
       isRequire: res.isRequire ? "必修" : "選択",
     };
   });
@@ -88,7 +87,7 @@ function Subjects() {
       <DashboardNavbar />
       <MDBox pt={6}>
         <Grid container spacing={1}>
-          <Grid item xs={12} md={12} lg={8}>
+          <Grid item xs={12} md={12} lg={12}>
             <MDBox mb={3}>
               <Card>
                 <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
@@ -125,11 +124,11 @@ function Subjects() {
                     <MDInput placeholder="科目名" fullWidth inputRef={newSubjectNameRef} />
                   </MDBox>
                   <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
-                    <MDInput placeholder="回数" fullWidth inputRef={newSubjectGradeRef} />
+                    <MDInput placeholder="回数" fullWidth inputRef={newSubjectCountRef} />
                   </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%" >
                     <Autocomplete
-                      options={['選択', '必修']}
+                      options={['選択', '必修']} 
                       renderInput={(params) => (
                         <MDInput
                           {...params}
@@ -145,55 +144,7 @@ function Subjects() {
               </Card>
             </MDBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={4}>
-            <MDBox pb={1}>
-              <Card>
-                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
-                  <MDBox>
-                    <MDTypography variant="h5" fontWeight="medium">
-                      ステータス変更
-                    </MDTypography>
-                  </MDBox>
-                  <MDButton variant="contained" color="info" onClick={putSubject}>
-                    PUT
-                  </MDButton>
-                </MDBox>
-                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
-                    <MDInput placeholder="300" inputRef={putSubjectNumberRef} fullWidth />
-                  </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
-                    <MDInput placeholder="自習室" inputRef={putSubjectStatusRef} fullWidth />
-                  </MDBox>
-                </MDBox>
-              </Card>
-            </MDBox>
-
-            <MDBox pb={1}>
-              <Card>
-                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
-                  <MDBox>
-                    <MDTypography variant="h5" fontWeight="medium">
-                      講義追加
-                    </MDTypography>
-                  </MDBox>
-                  <MDButton variant="contained" color="warning" onClick={postSubject}>
-                    POST
-                  </MDButton>
-                </MDBox>
-
-                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
-                    <MDInput placeholder="学年" fullWidth inputRef={newSubjectGradeRef} />
-                  </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="70%">
-                    <MDInput>
-
-                    </MDInput>
-                  </MDBox>
-                </MDBox>
-              </Card>
-            </MDBox>
+          <Grid item xs={12} md={12} lg={12}>
 
             <MDBox pb={1}>
               <Card>
@@ -210,7 +161,7 @@ function Subjects() {
 
                 <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
                   <MDBox flex="1 1 auto" mr={1}>
-                    <MDInput placeholder="番号" fullWidth inputRef={deleteSubjectNameRef} />
+                    <MDInput placeholder="講義名" fullWidth inputRef={deleteSubjectNameRef} />
                   </MDBox>
                 </MDBox>
               </Card>
