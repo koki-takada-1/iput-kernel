@@ -8,6 +8,7 @@ const postRoute = require("./routes/posts");
 const subjectRoute = require("./routes/subjects");
 const roomRoute = require("./routes/rooms");
 const teacherRoute = require("./routes/teachers");
+const classRoute = require("./routes/classes");
 
 const PORT = 4000;
 const mongoose = require("mongoose");
@@ -32,5 +33,6 @@ app.use("/api/posts",postRoute);
 app.use("/api/subjects",subjectRoute);
 app.use("/api/rooms",roomRoute);
 app.use("/api/teachers",teacherRoute);
+app.use("/api/classes",classRoute);
 
 app.listen(PORT,() => console.log("サーバーが起動しました"));

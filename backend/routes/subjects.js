@@ -36,6 +36,17 @@ router.delete("/:id", async (req,res) => {
     };
 });
 
+// Subjectを削除 subjectNameで
+router.delete("/name/:subjectName", async (req,res) => {
+    try{
+        const subject = await Subject.findOne({subjectName: req.params.subjectName});
+        await subject.deleteOne();
+        return res.status(200).json("Subjectを削除しました。");
+    }catch(err){
+        return res.status(500).json(err);
+    };
+});
+
 //全てのSubject取得
 router.get("/", async (req,res) => {
     try{

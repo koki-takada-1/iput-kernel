@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 
 const ClassSchema = new mongoose.Schema({
+    department: {
+        type: String,
+    },
+    course: {
+        type: String,
+    },
     classGrade: {
         type: Number,
-        required: true,
     },
     classChar: {
         type: String,
@@ -13,13 +18,9 @@ const ClassSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    teachersId: {
-        type: Array,
-        default: [],
-    },
     timetableId: {
-        type: Array,
-        default: [],
+        type: String,
+        default: "",
     },
 });
 

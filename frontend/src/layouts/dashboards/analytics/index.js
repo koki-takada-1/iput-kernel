@@ -193,7 +193,6 @@ function Analytics() {
                 () => (
                   <EventCalendar
                     initialView="dayGridMonth"
-                    initialDate="2021-08-10"
                     events={calendarEventsData}
                     selectable
                     editable

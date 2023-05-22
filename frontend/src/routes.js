@@ -50,6 +50,7 @@ import Rooms from "layouts/datas/rooms";
 import Teachers from "layouts/datas/teachers";
 import Classes from "layouts/datas/classes";
 import Timelines from "layouts/datas/timelines";
+import Subjects from "layouts/datas/subjects";
 import HelpPage from "layouts/pages/help-page";
 
 // Material Dashboard 2 PRO React components
@@ -131,6 +132,12 @@ const routes = [
         route: "/datas/timelines",
         component: <Timelines />,
       },
+      {
+        name: "Subjects",
+        key: "subjects",
+        route: "/datas/subjects",
+        component: <Subjects />,
+      }
     ],
 
   },

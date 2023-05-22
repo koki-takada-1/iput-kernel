@@ -24,7 +24,7 @@ function Classes() {
 
   useEffect(() => {
     const fetchRooms = async () => {
-      const res = await axios.get("/rooms/");
+      const res = await axios.get("/classes/");
       setRooms(res.data);
     };
     fetchRooms();
@@ -57,8 +57,10 @@ function Classes() {
 
   const roomTableData = {
     columns: [
-      { Header: "番号", accessor: "roomNumber", width: "20%" },
-      { Header: "教室名", accessor: "roomName", width: "45%" },
+      { Header: "学科", accessor: "department", width: "15%" , isSorted: true},
+      { Header: "学年", accessor: "classGrade", width: "15%" },
+      { Header: "コース", accessor: "course", width: "30%" },
+      { Header: "クラス", accessor: "classChar", width: "15%" },
       { Header: "ステータス", accessor: "status" },
     ],
     rows: rooms,
@@ -75,17 +77,14 @@ function Classes() {
                 <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                   <MDBox lineHeight={1}>
                     <MDTypography variant="h5" fontWeight="medium">
-                      教室一覧
+                      クラス一覧
                     </MDTypography>
                     <MDTypography variant="button" color="text">
                       未ソートの場合は、生成順で表示されます。
                     </MDTypography>
                   </MDBox>
-                  <MDButton variant="contained" color="info">
-                    教室を追加
-                  </MDButton>
                 </MDBox>
-                <DataTable table={roomTableData} canSearch />
+                <DataTable table={roomTableData} canSearch/>
               </Card>
             </MDBox>
           </Grid>

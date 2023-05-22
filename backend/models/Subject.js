@@ -17,7 +17,11 @@ const SubjectSchema = new mongoose.Schema({
     grade: {
         type: Number,
     },
-    ifRequire: {
+    count: {
+        type: Number,
+        default: 0,
+    },
+    isRequire: {
         type: Boolean,
         default: false,
     },

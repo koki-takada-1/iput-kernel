@@ -30,7 +30,6 @@ function Teachers() {
 
   const fetchTeachers = async () => {
     const res = await axios.get("/teachers/");
-    console.log(res.data);
     setTeachers(res.data);
   };
   
