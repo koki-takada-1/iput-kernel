@@ -15,7 +15,7 @@ import FormField from "layouts/applications/wizard/components/FormField";
 // Images
 import lenna from "assets/images/Lenna.png";
 
-function About() {
+function About({  firstName, onFirstNameChange, lastName, onLastNameChange, desc, onDescChange}) {
   return (
     <MDBox>
       <MDBox width="82%" textAlign="center" mx="auto" my={4}>
@@ -43,14 +43,26 @@ function About() {
             <MDBox mb={2}>
               <FormField 
                 type="text" 
-                label="First Name" />
+                label="First Name"
+                value={firstName}
+                onChange={(e) => onFirstNameChange(e.target.value)}
+                />
                 
             </MDBox>
             <MDBox mb={2}>
-              <FormField type="text" label="Last Name" />
+              <FormField type="text" 
+                label="Last Name"
+                value={lastName}
+                onChange={(e) => onLastNameChange(e.target.value)}
+              />
             </MDBox>
             <MDBox>
-              <FormField type="text" label="Discription" />
+              <FormField
+                type="text"
+                label="Discription"
+                value={desc}
+                onChange={(e) => onDescChange(e.target.value)}
+              />
             </MDBox>
           </Grid>
         </Grid>
