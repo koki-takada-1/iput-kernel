@@ -13,7 +13,7 @@ import axios from "axios";
 import { AuthContext } from "states/AuthContext";
 
 function Classes() {
-  const [rooms, setRooms] = useState([]);
+  const [classes, setClasses] = useState([]);
   const putRoomNumberRef = useRef(null);
   const putRoomStatusRef = useRef(null);
   const deleteRoomNumberRef = useRef(null);
@@ -27,37 +27,47 @@ function Classes() {
   const { user } = useContext(AuthContext);
 
 
-  const fetchRooms = async () => {
+  const fetchClasses = async () => {
     const res = await axios.get("/classes/");
-    setRooms(res.data);
+    setClasses(res.data);
   };
+
+  const classesData = classes.map((res) => {
+    return {
+      ...res,
+      classGrade: res.classGrade + " 年",
+      students_len: res.studentsId.length + " 人",
+      classChar: res.classChar + " 組",
+    };
+  });
 
   useEffect(() => {
 
-    fetchRooms();
+    fetchClasses();
   }, []);
 
-  const postRoom = async () => {
-    const res = await axios.post("/rooms/", {
-      roomName: newClassNameRef.current.value,
-      roomNumber: newClassCourseRef.current.value,
-      userId: user._id,
+  const postClass = async () => {
+    const res = await axios.post("/classes/", {
+      department: newClassDepartmentRef.current.value,
+      course: newClassCourseRef.current.value,
+      classGrade: newClassGradeRef.current.value,
+      classChar: newClassCharRef.current.value,
     });
-    fetchRooms();
+    fetchClasses();
   };
 
   const putRoom = async () => {
     const res = await axios.put(`/rooms/number/${putRoomNumberRef.current.value}`, {
       status: putRoomStatusRef.current.value,
     });
-    fetchRooms();
+    fetchClasses();
   };
 
   const deleteRoom = async () => {
     const res = await axios.delete(`/classes/${deleteRoomNumberRef.current.value}`, {
       data: { userId: user._id },
     });
-    fetchRooms();
+    fetchClasses();
   };
 
   const roomTableData = {
@@ -66,9 +76,10 @@ function Classes() {
       { Header: "学年", accessor: "classGrade", width: "15%" },
       { Header: "コース", accessor: "course", width: "20%" },
       { Header: "クラス", accessor: "classChar", width: "15%" },
+      { Header: "人数", accessor: "students_len", width: "15%" },
       { Header: "meta_id", accessor: "_id" , width:"40%" },
     ],
-    rows: rooms,
+    rows: classesData,
   };
 
   return (
@@ -100,7 +111,7 @@ function Classes() {
                       教室追加
                     </MDTypography>
                   </MDBox>
-                  <MDButton variant="contained" color="warning" onClick={postRoom}>
+                  <MDButton variant="contained" color="warning" onClick={postClass}>
                     POST
                   </MDButton>
                 </MDBox>
@@ -151,7 +162,7 @@ function Classes() {
                 <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
                   <MDBox>
                     <MDTypography variant="h5" fontWeight="medium">
-                      教室削除
+                      クラス削除
                     </MDTypography>
                   </MDBox>
                   <MDButton variant="contained" color="error" onClick={deleteRoom}>

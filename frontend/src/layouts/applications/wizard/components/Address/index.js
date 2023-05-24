@@ -8,7 +8,6 @@ import FormField from "layouts/pages/account/components/FormField";
 import Autocomplete from "@mui/material/Autocomplete";
 
 // Wizard application components
-
 import selectData from "layouts/pages/account/settings/components/BasicInfo/data/selectData";
 
 const technologies = [
@@ -166,10 +165,10 @@ function Address() {
           placeholder="080 1234 1234"
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={4}>
         <FormField label="母国言語" placeholder="日本語" />
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={8}>
         <Autocomplete
           multiple        
           options={technologies}

@@ -9,10 +9,12 @@ const UserSchema = new mongoose.Schema({
     },
     realnameFirst: {
         type: String,
+        default: "",
         max: 32
     },
     realnameLast: {
         type: String,
+        default: "",
         max: 32
     },
     email: {

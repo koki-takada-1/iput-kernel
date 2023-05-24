@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState ,useRef } from "react";
+
+import axios from "axios";
 
 // @mui material components
 import Grid from "@mui/material/Grid";
@@ -47,6 +49,28 @@ function Wizard() {
   const handleNext = () => setActiveStep(activeStep + 1);
   const handleBack = () => setActiveStep(activeStep - 1);
 
+  const firstNameRef = useRef("");
+  const lastNameRef = useRef("");
+  const descRef = useRef("");
+
+  const departmentRef = useRef("");
+  
+  const sexRef = useRef("");
+  const birthdayRef = useRef(null);
+
+  const courseRef = useRef("");
+  const gradeRef = useRef(0);
+  const charRef = useRef("");
+  const engCharRef = useRef("");
+  const phoneRef = useRef("");
+  const tongueRef = useRef("");
+  const skillsRef = useRef([]);
+
+
+  const postProfile = async () => {
+    console.log(firstNameRef.current.value);
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
@@ -87,7 +111,7 @@ function Wizard() {
                     <MDButton
                       variant="gradient"
                       color="dark"
-                      onClick={!isLastStep ? handleNext : undefined}
+                      onClick={!isLastStep ? handleNext : postProfile}
                     >
                       {isLastStep ? "send" : "next"}
                     </MDButton>

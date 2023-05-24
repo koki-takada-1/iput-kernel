@@ -48,8 +48,8 @@ router.delete("/:id", async (req,res) => {
 //特定のクラスの取得
 router.get("/:id", async (req,res) => {
     try{
-        const post = await Class.findById(req.params.id);
-        return res.status(200).json(post);
+        const classes = await Class.findById(req.params.id);
+        return res.status(200).json(classes);
     }catch(err){
         return res.status(403).json(err);
     }
