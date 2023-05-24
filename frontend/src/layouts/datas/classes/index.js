@@ -17,51 +17,56 @@ function Classes() {
   const putRoomNumberRef = useRef(null);
   const putRoomStatusRef = useRef(null);
   const deleteRoomNumberRef = useRef(null);
-  const newRoomNameRef = useRef(null);
-  const newRoomNumberRef = useRef(null);
+
+  const newClassDepartmentRef = useRef("");
+  const newClassGradeRef = useRef(0);
+  const newClassNameRef = useRef("");
+  const newClassCourseRef = useRef("");
+  const newClassCharRef = useRef("");
 
   const { user } = useContext(AuthContext);
 
+
+  const fetchRooms = async () => {
+    const res = await axios.get("/classes/");
+    setRooms(res.data);
+  };
+
   useEffect(() => {
-    const fetchRooms = async () => {
-      const res = await axios.get("/classes/");
-      setRooms(res.data);
-    };
+
     fetchRooms();
   }, []);
 
   const postRoom = async () => {
     const res = await axios.post("/rooms/", {
-      roomName: newRoomNameRef.current.value,
-      roomNumber: newRoomNumberRef.current.value,
+      roomName: newClassNameRef.current.value,
+      roomNumber: newClassCourseRef.current.value,
       userId: user._id,
     });
-    setRooms((prevRooms) => [...prevRooms, res.data]);
+    fetchRooms();
   };
 
   const putRoom = async () => {
     const res = await axios.put(`/rooms/number/${putRoomNumberRef.current.value}`, {
       status: putRoomStatusRef.current.value,
     });
-    setRooms((prevRooms) =>
-      prevRooms.map((room) => (room.roomNumber === res.data.roomNumber ? res.data : room))
-    );
+    fetchRooms();
   };
 
   const deleteRoom = async () => {
-    const res = await axios.delete(`/rooms/number/${deleteRoomNumberRef.current.value}`, {
+    const res = await axios.delete(`/classes/${deleteRoomNumberRef.current.value}`, {
       data: { userId: user._id },
     });
-    setRooms((prevRooms) => prevRooms.filter((room) => room.roomNumber !== res.data.roomNumber));
+    fetchRooms();
   };
 
   const roomTableData = {
     columns: [
-      { Header: "学科", accessor: "department", width: "15%" , isSorted: true},
+      { Header: "学科", accessor: "department", width: "10%" , isSorted: true},
       { Header: "学年", accessor: "classGrade", width: "15%" },
-      { Header: "コース", accessor: "course", width: "30%" },
+      { Header: "コース", accessor: "course", width: "20%" },
       { Header: "クラス", accessor: "classChar", width: "15%" },
-      { Header: "ステータス", accessor: "status" },
+      { Header: "meta_id", accessor: "_id" , width:"40%" },
     ],
     rows: rooms,
   };
@@ -87,6 +92,35 @@ function Classes() {
                 <DataTable table={roomTableData} canSearch/>
               </Card>
             </MDBox>
+            <MDBox pb={1}>
+              <Card>
+                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
+                  <MDBox>
+                    <MDTypography variant="h5" fontWeight="medium">
+                      教室追加
+                    </MDTypography>
+                  </MDBox>
+                  <MDButton variant="contained" color="warning" onClick={postRoom}>
+                    POST
+                  </MDButton>
+                </MDBox>
+
+                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
+                    <MDInput placeholder="学部" fullWidth inputRef={newClassDepartmentRef} />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
+                    <MDInput placeholder="学年" fullWidth inputRef={newClassGradeRef} />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
+                    <MDInput placeholder="コース" fullWidth inputRef={newClassCourseRef} />
+                  </MDBox>
+                  <MDBox flex="1 1 auto" mr={1} flexBasis="15%">
+                    <MDInput placeholder="クラス" fullWidth inputRef={newClassCharRef} />
+                  </MDBox>
+                </MDBox>
+              </Card>
+            </MDBox>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <MDBox pb={1}>
@@ -107,30 +141,6 @@ function Classes() {
                   </MDBox>
                   <MDBox flex="1 1 auto" mr={1} flexBasis="50%">
                     <MDInput placeholder="自習室" inputRef={putRoomStatusRef} fullWidth />
-                  </MDBox>
-                </MDBox>
-              </Card>
-            </MDBox>
-
-            <MDBox pb={1}>
-              <Card>
-                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3} lineHeight={1}>
-                  <MDBox>
-                    <MDTypography variant="h5" fontWeight="medium">
-                      教室追加
-                    </MDTypography>
-                  </MDBox>
-                  <MDButton variant="contained" color="warning" onClick={postRoom}>
-                    POST
-                  </MDButton>
-                </MDBox>
-
-                <MDBox p={2} display="flex" justifyContent="space-between" alignItems="center">
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="30%">
-                    <MDInput placeholder="番号" fullWidth inputRef={newRoomNumberRef} />
-                  </MDBox>
-                  <MDBox flex="1 1 auto" mr={1} flexBasis="70%">
-                    <MDInput placeholder="教室名" fullWidth inputRef={newRoomNameRef} />
                   </MDBox>
                 </MDBox>
               </Card>

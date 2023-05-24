@@ -3,7 +3,7 @@ const router = require('express').Router();
 const Class = require('../models/Class');
 const User = require('../models/User');
 
-//投稿
+//クラス
 router.post("/", async (req,res) => {
     const newClass = new Class(req.body);
     try{
@@ -21,9 +21,9 @@ router.put("/:id", async (req,res) => {
             await post.updateOne({
                 $set: req.body,
             });
-            return res.status(200).json("投稿が更新されました");
+            return res.status(200).json("クラスが更新されました");
         }else{
-            return res.status(403).json("投稿を更新できません");
+            return res.status(403).json("クラスを更新できません");
         }
     }catch(err){
         return res.status(500).json(err);
@@ -33,18 +33,19 @@ router.put("/:id", async (req,res) => {
 router.delete("/:id", async (req,res) => {
     try{
         const post = await Class.findById(req.params.id);
-        if(post.userId === req.body.userId){
+        const user = await User.findById(req.body.userId);
+        if(user.isAdmin || user.credLevel > 5){
             await post.deleteOne();
-            return res.status(200).json("投稿が削除されました");
+            return res.status(200).json("クラスが削除されました");
         }else{
-            return res.status(403).json("投稿を削除できません");
+            return res.status(403).json("クラスを削除できません");
         }
     }catch(err){
         return res.status(500).json(err);
     }
 });
 
-//特定の投稿の取得
+//特定のクラスの取得
 router.get("/:id", async (req,res) => {
     try{
         const post = await Class.findById(req.params.id);
