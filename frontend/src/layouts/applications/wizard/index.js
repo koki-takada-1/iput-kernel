@@ -28,8 +28,6 @@ function getSteps() {
   return ["名前", "学科", "基本情報"];
 }
 
-
-
 function Wizard() {
   const [activeStep, setActiveStep] = useState(0);
   const steps = getSteps();
@@ -38,26 +36,25 @@ function Wizard() {
   const handleNext = () => setActiveStep(activeStep + 1);
   const handleBack = () => setActiveStep(activeStep - 1);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [desc, setDesc] = useState("");
+  const [about, setAbout] = useState({ firstName: "", lastName: "", desc: "" });
 
   const [department, setDepartment] = useState("");
   
-  const [sex, setSex] = useState("");
-  const [birthday, setBirthday] = useState(null);
-  const [course, setCourse] = useState("");
-  const [grade, setGrade] = useState(0);
-  const [char, setChar] = useState("");
-  const [engChar, setEngChar] = useState("");
-  const [phone, setPhone] = useState("");
-  const [tongue, setTongue] = useState("");
-  const [skills, setSkills] = useState([]);
-
+  const [basic, setBasic] = useState({
+    sex: "",
+    birthday: null,
+    course: "",
+    grade: 0,
+    char: "",
+    engChar: "",
+    phone: "",
+    tongue: "",
+    skills: [],
+  });
 
 
   const postProfile = async () => {
-    console.log(firstName);
+    console.log(about);
   };
 
   function getStepContent(stepIndex) {
@@ -65,23 +62,21 @@ function Wizard() {
       case 0:
         return (
           <About
-            firstName={firstName}
-            onFirstNameChange={setFirstName}
-            lastName={lastName}
-            onLastNameChange={setLastName}
-            desc={desc}
-            onDescChange={setDesc}
+            onAboutChange={setAbout}
           />
         );
       case 1:
-        return <Account />;
+        return <Account
+          onDepartmentChange={setDepartment}
+        />;
       case 2:
-        return <Address />;
+        return <Address
+          onBasicChange={setBasic}
+        />;
       default:
         return null;
     }
   }
-
 
   return (
     <DashboardLayout>

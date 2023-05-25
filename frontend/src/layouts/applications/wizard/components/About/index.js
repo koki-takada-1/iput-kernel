@@ -15,7 +15,29 @@ import FormField from "layouts/applications/wizard/components/FormField";
 // Images
 import lenna from "assets/images/Lenna.png";
 
-function About({  firstName, onFirstNameChange, lastName, onLastNameChange, desc, onDescChange}) {
+import { useState } from "react";
+
+function About({ onAboutChange }) {
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [desc, setDesc] = useState("");
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+    onAboutChange({ firstName: e.target.value, lastName, desc });
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+    onAboutChange({ firstName, lastName: e.target.value, desc });
+  };
+
+  const handleDescChange = (e) => {
+    setDesc(e.target.value);
+    onAboutChange({ firstName, lastName, desc: e.target.value });
+  };
+
   return (
     <MDBox>
       <MDBox width="82%" textAlign="center" mx="auto" my={4}>
@@ -45,7 +67,7 @@ function About({  firstName, onFirstNameChange, lastName, onLastNameChange, desc
                 type="text" 
                 label="First Name"
                 value={firstName}
-                onChange={(e) => onFirstNameChange(e.target.value)}
+                onChange={handleFirstNameChange}
                 />
                 
             </MDBox>
@@ -53,7 +75,7 @@ function About({  firstName, onFirstNameChange, lastName, onLastNameChange, desc
               <FormField type="text" 
                 label="Last Name"
                 value={lastName}
-                onChange={(e) => onLastNameChange(e.target.value)}
+                onChange={handleLastNameChange}
               />
             </MDBox>
             <MDBox>
@@ -61,7 +83,7 @@ function About({  firstName, onFirstNameChange, lastName, onLastNameChange, desc
                 type="text"
                 label="Discription"
                 value={desc}
-                onChange={(e) => onDescChange(e.target.value)}
+                onChange={handleDescChange}
               />
             </MDBox>
           </Grid>
