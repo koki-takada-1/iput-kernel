@@ -15,27 +15,11 @@ import FormField from "layouts/applications/wizard/components/FormField";
 // Images
 import lenna from "assets/images/Lenna.png";
 
-import { useState } from "react";
 
-function About({ onAboutChange }) {
+function About({ about, onAboutChange }) {
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [desc, setDesc] = useState("");
-
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-    onAboutChange({ firstName: e.target.value, lastName, desc });
-  };
-
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-    onAboutChange({ firstName, lastName: e.target.value, desc });
-  };
-
-  const handleDescChange = (e) => {
-    setDesc(e.target.value);
-    onAboutChange({ firstName, lastName, desc: e.target.value });
+  const handleAboutChange = (field) => (event) => {
+    onAboutChange({ ...about, [field]: event.target.value });
   };
 
   return (
@@ -66,24 +50,24 @@ function About({ onAboutChange }) {
               <FormField 
                 type="text" 
                 label="First Name"
-                value={firstName}
-                onChange={handleFirstNameChange}
+                value={about.firstName}
+                onChange={handleAboutChange('firstName')}
                 />
                 
             </MDBox>
             <MDBox mb={2}>
               <FormField type="text" 
                 label="Last Name"
-                value={lastName}
-                onChange={handleLastNameChange}
+                value={about.lastName}
+                onChange={handleAboutChange('lastName')}
               />
             </MDBox>
             <MDBox>
               <FormField
                 type="text"
                 label="Discription"
-                value={desc}
-                onChange={handleDescChange}
+                value={about.desc}
+                onChange={handleAboutChange('desc')}
               />
             </MDBox>
           </Grid>

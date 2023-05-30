@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // @mui material components
 import Grid from "@mui/material/Grid";
 import Icon from "@mui/material/Icon";
@@ -9,21 +7,11 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 import MDButton from "components/MDButton";
 
-function Account() {
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
+function Account({ department, onDepartmentChange }) {
 
   const handleButtonClick = (department) => {
-    setSelectedDepartment(department);
+    onDepartmentChange(department);
   };
-
-
-  const [design, setDesign] = useState(false);
-  const [code, setCode] = useState(false);
-  const [develop, setDevelop] = useState(false);
-
-  const handleSetDesign = () => setDesign(!design);
-  const handleSetCode = () => setCode(!code);
-  const handleSetDevelop = () => setDevelop(!develop);
 
   const customButtonStyles = ({
     functions: { pxToRem, rgba },
@@ -65,18 +53,18 @@ function Account() {
   
 
   return (
-    <MDBox>
+    <MDBox mt={2}>
       {/* その他のコードは省略 */}
       <Grid container spacing={3} justifyContent="center">
         <Grid item xs={12} sm={3}>
           <MDBox textAlign="center">
             <MDButton
               color="info"
-              variant={selectedDepartment === 'DE' ? "contained" : "outlined"}
+              variant={department === 'DE' ? "contained" : "outlined"}
               onClick={() => handleButtonClick('DE')}
               sx={customButtonStyles}
             >
-              <Icon sx={{ color: selectedDepartment === 'DE' ? "white" : "inherit" }}>brush</Icon>
+              <Icon sx={{ color: department === 'DE' ? "white" : "inherit" }}>brush</Icon>
             </MDButton>
             <MDTypography variant="h6" sx={{ mt: 1 }}>
               DE
@@ -87,11 +75,11 @@ function Account() {
           <MDBox textAlign="center">
             <MDButton
               color="info"
-              variant={selectedDepartment === 'IT' ? "contained" : "outlined"}
+              variant={department === 'IT' ? "contained" : "outlined"}
               onClick={() => handleButtonClick('IT')}
               sx={customButtonStyles}
             >
-              <Icon sx={{ color: selectedDepartment === 'IT' ? "white" : "inherit" }}>developer_mode</Icon>
+              <Icon sx={{ color: department === 'IT' ? "white" : "inherit" }}>developer_mode</Icon>
             </MDButton>
             <MDTypography variant="h6" sx={{ mt: 1 }}>
              IT 
@@ -99,7 +87,6 @@ function Account() {
           </MDBox>
         </Grid>
       </Grid>
-      {/* その他のコードは省略 */}
     </MDBox>
   );
 }

@@ -42,7 +42,7 @@ function Wizard() {
   
   const [basic, setBasic] = useState({
     sex: "",
-    birthday: null,
+    birthday: { year: '', month: '', day: '' },
     course: "",
     grade: 0,
     char: "",
@@ -55,6 +55,8 @@ function Wizard() {
 
   const postProfile = async () => {
     console.log(about);
+    console.log(department);
+    console.log(basic);
   };
 
   function getStepContent(stepIndex) {
@@ -62,15 +64,18 @@ function Wizard() {
       case 0:
         return (
           <About
+            about={about} 
             onAboutChange={setAbout}
           />
         );
       case 1:
         return <Account
+          department={department} 
           onDepartmentChange={setDepartment}
         />;
       case 2:
         return <Address
+          basic={basic} 
           onBasicChange={setBasic}
         />;
       default:
